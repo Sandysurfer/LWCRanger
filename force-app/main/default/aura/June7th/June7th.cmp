@@ -1,0 +1,63 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" >
+    
+    
+    <aura:attribute name="firstname" type="string"/>
+    <aura:attribute name="lastname" type="string"/>
+    <aura:attribute name="email" type="string"/>
+    <aura:attribute name="phone" type="string"/>
+    <aura:attribute name="showInput" type="Boolean" Default="true"/>
+    <aura:attribute name="showOutput" type="Boolean" Default="false"/>
+    <aura:if isTrue="{!v.showInput}">
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            
+            <div class="slds-size_1-of-2">
+                <lightning:input aura:id="fname" name="input3" label="Please enter your first name" placeholder="type here..."/>
+            </div>
+            <div class="slds-size_1-of-2">
+                <lightning:input aura:id="lname" name="input3" label="Please enter your last name" placeholder="type here..."/>
+                
+            </div>
+            
+            
+        </div>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <div class="slds-size_1-of-2"> 
+                <lightning:input aura:id="email" type="email" name="email3" placeholder="youraddress@company.com" label="Enter your email" />
+            </div>
+            <div class="slds-size_1-of-2">
+                <lightning:input aura:id="phone" type="tel" label="Enter your phone number" name="phone2" placeholder="areacode-phone"/>
+            </div>
+        </div>  
+        
+        <div class="slds-align_absolute-center" style="height:5rem">
+            <lightning:button variant="brand" label="Submit" title="Brand action" onclick="{! c.handleClick }" />
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.showOutput}">
+        
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            
+            <div class="slds-size_1-of-2">
+                <lightning:input name="input3" label="your first name" placeholder="type here..." value="{!v.firstname}" disabled="true"/>
+            </div>
+            <div class="slds-size_1-of-2">
+                <lightning:input name="input3" label="Please enter your last name" placeholder="type here..." value="{!v.lastname}"  disabled="true"/>
+                
+            </div>
+            
+            
+        </div>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <div class="slds-size_1-of-2"> 
+                <lightning:input type="email" name="email3" placeholder="youraddress@company.com" label="your email" value="{!v.email}"  disabled="true"/>
+            </div>
+            <div class="slds-size_1-of-2">
+                <lightning:input type="tel" label="your phone number" name="phone2" placeholder="areacode-phone" value="{!v.phone}"  disabled="true"/>
+                <div class="slds-align_absolute-center" style="height:5rem">
+                    <lightning:button variant="brand" label="Go Back" title="Brand action" onclick="{! c.goBack }" />
+                </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

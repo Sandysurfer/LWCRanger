@@ -1,0 +1,27 @@
+<apex:page standardController="consultant__c" extensions="conInputController"  >
+   <apex:form >   
+       <apex:pageBlock title="Consultant Edit">
+         <apex:pageBlockSection title="Consultant Information">
+               <apex:inputField value="{!consultant__c.Name}"   required="true"/>
+               <apex:outputField value="{!consultant__c.OwnerId}"/>
+               <apex:inputField value="{!consultant__c.Date_of_joining__c}"/>
+               <apex:inputHidden />
+               <apex:inputField value="{!consultant__c.Date_of_birth__c}"/>
+               <apex:inputHidden />
+               <apex:inputField value="{!consultant__c.Type__c}" required="true"/>
+               <apex:inputHidden />
+               <apex:inputField value="{!consultant__c.EMAIL__c}"/>
+               <apex:inputHidden />
+               <apex:inputField value="{!consultant__c.phone__c}"/>
+               <apex:inputHidden />
+               <apex:inputField value="{!consultant__c.state__c}"/>
+               <apex:inputHidden />
+               <apex:inputField value="{!consultant__c.country__c}"/>
+               <apex:inputHidden />
+               <apex:inputField value="{!consultant__c.status__c}"/>
+               <apex:inputHidden />
+    </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+
+</apex:page>

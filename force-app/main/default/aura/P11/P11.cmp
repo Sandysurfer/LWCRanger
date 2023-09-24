@@ -1,0 +1,9 @@
+<aura:component >
+    <aura:handler name="cmpEvent" event="c:C11Event" action="{!c.handleComponentEvent}"/>
+    <aura:attribute name="buttonName" type="String"/>
+    <lightning:card title="User Selection">
+        The Selected Option : {!v.buttonName}
+    </lightning:card>
+    
+    <c:C11/>
+</aura:component>

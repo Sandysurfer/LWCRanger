@@ -1,0 +1,11 @@
+<template>
+    <h2>Account Details</h2>
+
+    <template if:true={accountlist}>
+        <lightning-datatable data={accountlist} columns={columns} key-field="Id">
+        </lightning-datatable>
+    </template>
+    <template if:true={error}>
+        {error}
+    </template>
+</template>

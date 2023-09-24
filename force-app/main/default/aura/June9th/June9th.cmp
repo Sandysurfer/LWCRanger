@@ -1,0 +1,16 @@
+<aura:component >
+    <aura:attribute name="Result" type="Integer"/>
+    <lightning:card title="Simple Calculator">
+        <lightning:input aura:id="firstnumber" type="number" name="input3" label="Enter the first number" placeholder="type here..."/>
+        <lightning:input aura:id="secondnumber" type="number" name="input3" label="Enter the second number" placeholder="type here..."/>
+        
+       <br></br>
+        
+        Result : {!v.Result}
+      </lightning:card>
+    <lightning:buttonGroup>
+            <lightning:button label="Addition" onclick="{! c.handleClick }" />
+            <lightning:button label="Substraction" onclick="{! c.handleClick }"  />
+            <lightning:button label="Multiplication" onclick="{! c.handleClick }" />
+    </lightning:buttonGroup>
+</aura:component>

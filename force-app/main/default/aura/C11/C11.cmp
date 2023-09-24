@@ -1,0 +1,8 @@
+<aura:component >
+    <aura:registerEvent name="cmpEvent" type="c:C11Event"/>
+     <lightning:card title="This is Game Component">
+	      <lightning:button variant="brand" label="Stone" title="Brand action" onclick="{! c.handleClick }" />
+          <lightning:button variant="brand" label="Paper" title="Brand action" onclick="{! c.handleClick }" />
+          <lightning:button variant="brand" label="Scissor" title="Brand action" onclick="{! c.handleClick }" />
+    </lightning:card>
+</aura:component>

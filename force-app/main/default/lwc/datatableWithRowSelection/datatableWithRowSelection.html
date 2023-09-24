@@ -1,0 +1,13 @@
+<template>
+
+    <lightning-button variant="brand" label={buttonLabel} onclick={handleClick}></lightning-button>
+
+    <template lwc:if={isDataVisible}>
+        <lightning-card icon-name="standard:contact" title="Related Contacts" variant="base">
+            <lightning-input type="search" class="slds-p-around_x-small" label="Search Contact Name" value={searchKey}
+                onchange={handleChange}></lightning-input>
+            <lightning-datatable key-field="id" data={contactData} columns={columns}
+                onrowselection={handleSelectedRow}></lightning-datatable>
+        </lightning-card>
+    </template>
+</template>

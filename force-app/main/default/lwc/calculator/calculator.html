@@ -1,0 +1,10 @@
+<template>
+ <lightning-card title="Calculator">
+    <lightning-input type="number" name="input1" label="Enter first number" value={firstnumber} onchange={onChangeHandler}></lightning-input>
+    <lightning-input type="number" name="input2" label="Enter second number" value={secondnumber} onchange={onChangeHandler}></lightning-input>
+
+    Result : {result}<br/>
+    <lightning-button variant="brand" label="Addition" title="Click Here" onclick={handleClick} ></lightning-button>
+    <lightning-button variant="brand" label="Multiplication" title="Click Here" onclick={handleClick} ></lightning-button>
+ </lightning-card>
+</template>

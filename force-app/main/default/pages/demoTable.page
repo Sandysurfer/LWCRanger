@@ -1,0 +1,24 @@
+<apex:page standardcontroller="Account" extensions="accTableController">
+    <apex:form >
+       <apex:inputText value="{!searchString}"/>
+       <apex:commandButton value="Search" action="{!search}"/>
+         <apex:pageBlock title="Account Records">
+         
+               <apex:pageBlockTable value="{!accList}" var="a">
+                  <apex:column headerValue=" Acc Name">
+                    <apex:outputLink value="/{!a.Id}">{!a.Name}</apex:outputLink>
+                      </apex:column>
+                         <apex:column value="{!a.rating}"/>
+                  <apex:column value="{!a.phone}"/>
+            </apex:pageBlockTable>
+            <!--
+                <apex:column headerValue="Name">
+                    <apex:outputLink value="/{!lead.Id}">{!lead.Name}</apex:outputLink>
+                </apex:column>
+             -->
+         </apex:pageBlock>
+    
+    
+    </apex:form>
+  
+</apex:page>

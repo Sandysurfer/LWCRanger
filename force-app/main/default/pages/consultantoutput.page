@@ -1,0 +1,26 @@
+<apex:page controller="conOutputController">
+<apex:form >
+<apex:pageBlock title="Consultant Edit">
+      <apex:pageBlockSection title="Consultant Information">
+          <apex:outputField value="{!con.Name}"/>
+               <apex:outputField value="{!con.OwnerId}"/>
+               <apex:outputField value="{!con.Date_of_joining__c}"/>
+               <apex:inputHidden />
+               <apex:outputField value="{!con.Date_of_birth__c}"/>
+               <apex:inputHidden />
+               <apex:outputField value="{!con.Type__c}"/>
+               <apex:inputHidden />
+               <apex:outputField value="{!con.EMAIL__c}"/>
+               <apex:inputHidden />
+               <apex:outputField value="{!con.phone__c}"/>
+               <apex:inputHidden />
+               <apex:outputField value="{!con.state__c}"/>
+               <apex:inputHidden />
+               <apex:outputField value="{!con.country__c}"/>
+               <apex:inputHidden />
+               <apex:outputField value="{!con.status__c}"/>
+               <apex:inputHidden />
+              </apex:pageBlockSection>
+              </apex:pageBlock>
+        </apex:form>     
+</apex:page>

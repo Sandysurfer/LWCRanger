@@ -1,0 +1,22 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasSobjectName,force:hasRecordId" controller="ShowOppty">
+    <aura:attribute name="OppList" type="List"/>
+    <aura:attribute name="opptyRecords" type="Integer"/>
+    <aura:handler name="init" value="{!this}" action="{!c.handleClick}"/>
+    
+    <aura:iteration items="{!v.OppList}" var="item">
+        
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <span> {!item.Name} </span>
+            </div>
+            <div class="slds-col">
+                <span> {!item.StageName} </span>
+            </div>
+            <div class="slds-col">
+                <span> {!item.Amount} </span>
+            </div>
+        </div>
+        
+    </aura:iteration>
+    
+</aura:component>

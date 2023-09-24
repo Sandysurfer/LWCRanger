@@ -1,0 +1,22 @@
+<apex:page standardController="Account" extensions="accExtInput">
+     <apex:form >
+        <apex:pageBlock title="Account Edit">
+           <apex:pageBlockSection title="Account Information">
+              <apex:outputField value="{!account.ownerId}"/>
+              <apex:inputField value="{!account.rating}" required="true"/>
+              <apex:inputField value="{!account.Name}"/>
+              <apex:inputField value="{!account.Phone}"/>
+           </apex:pageBlockSection>
+             
+           <apex:pageBlockSection title="Description Information">
+                <apex:inputField value="{!account.description}"/>
+           </apex:pageBlockSection>
+          
+             <apex:pageBlockButtons location="both">
+                 <apex:commandButton value="Save" action="{!Save}"/>
+                 <apex:commandButton value="SaveAndNew" action="{!SaveAndNew}"/>
+                 <apex:commandButton value="Cancel" action="{!Cancel}"/>
+             </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
