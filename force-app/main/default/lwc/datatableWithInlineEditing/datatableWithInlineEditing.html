@@ -1,8 +1,7 @@
 <template>
-    <lightning-datatable
-        if:true={contactList}
-        key-field="Id"
-        data={contactList}
-       columns={columns}>
-    </lightning-datatable>
+    <div style="height:300px;">
+        <lightning-datatable key-field="Id" data={contactsData} show-row-number-column="true" columns={columns}
+            onsave={handleSave} hide-checkbox-column="true" draft-values={draftValues}>
+        </lightning-datatable>
+    </div>
 </template>
