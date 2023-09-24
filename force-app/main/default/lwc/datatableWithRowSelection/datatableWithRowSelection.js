@@ -55,7 +55,7 @@ export default class DatatableWithRowSelection extends LightningElement {
     }
 
     handleSelectedRow(event) {
-        let selectedRows = event.detail.selectedRows;
-        console.log(selectedRows);
+        const selectedRow = event.detail.selectedRows;
+        console.log('selectedRow:', JSON.stringify(selectedRow));
     }
 }
