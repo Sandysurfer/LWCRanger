@@ -1,5 +1,5 @@
 import { LightningElement } from 'lwc';
-import createContactRecords from '@salesforce/apex'
+import createContactRecords from '@salesforce/apex/ContactController.createContactRecords';
 export default class CreateRecordUsingApex extends LightningElement {
 
 
@@ -23,6 +23,12 @@ export default class CreateRecordUsingApex extends LightningElement {
     }
 
     handleClick() {
-       
+        createContactRecords({ firstname: this.contactFirstName, lastname: this.contactLastName, email: this.contactEmail, phone: this.contactEmail })
+            .then(result => {
+                console.log('ContactRecords', JSON.stringify(result));
+            })
+            .catch(error => {
+                console.log('Error', JSON.stringify(error));
+            })
     }
 }
