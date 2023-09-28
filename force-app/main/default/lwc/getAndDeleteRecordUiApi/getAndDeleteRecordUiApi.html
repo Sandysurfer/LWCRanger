@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Get Account Record Details">
+        <template if:true={accountDetail}>
+            <lightning-layout class="slds-var-m-vertical_x-small">
+                <lightning-layout-Item>
+                    Account Id : {accountId}
+                    Account Name : {accountName}
+                    Account Phone : {accountPhone}
+                    Account Industry : {accountIndustry}
+                    Account Owner : {accountowner}
+                </lightning-layout-Item>
+            </lightning-layout>
+        </template>
+    </lightning-card>
+
+    <lightning-button label="Delete Record" variant="destructive" icon-name="utility:delete" icon-position="right"
+        onclick={handleDeleteAccount}></lightning-button>
+    </div>
+</template>

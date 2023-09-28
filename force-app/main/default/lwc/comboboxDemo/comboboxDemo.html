@@ -1,0 +1,11 @@
+<template>
+    <!---Lightning Combobox to display Account list by using imperative method...-->
+
+    <lightning-card title="Accounts Combobox" icon-name="standard:account" variant="base">
+        <lightning-combobox label="Status" value={value} placeholder="Select Account" options={options}
+            onchange={handleChange}>
+        </lightning-combobox>
+
+        <p>Selected Value is: {value}</p>
+    </lightning-card>
+</template>
