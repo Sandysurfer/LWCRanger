@@ -1,8 +1,12 @@
 <template>
-    <lightning-datatable
-        if:true={contactList}
-        key-field="Id"
-        data={contactList}
-       columns={columns}>
-    </lightning-datatable>
+    <h2>Contact Datatable</h2>
+    <template if:true={data}>
+        <div>
+            <lightning-datatable key-field="Id" data={data} columns={columns}>
+            </lightning-datatable>
+        </div>
+    </template>
+    <template if:true={error}>
+        {error}
+    </template>
 </template>

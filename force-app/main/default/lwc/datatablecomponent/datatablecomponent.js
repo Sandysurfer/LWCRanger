@@ -1,24 +1,25 @@
 import { LightningElement, wire } from 'lwc';
 import getContacts from '@salesforce/apex/DatatableController.getContacts';
 const columns = [
-    { label: 'Name', fieldName: 'Name' },
-    { label: 'Id', fieldName: 'Id' },
+    { label: 'First Name', fieldName: 'FirstName', type: 'text' },
+    { label: 'Last Name', fieldName: 'LastName', type: 'text' },
     { label: 'Phone', fieldName: 'Phone', type: 'Phone' },
     { label: 'Email', fieldName: 'Email', type: 'email' }
 
 ];
-export default class DatatableJune25th extends LightningElement {
+export default class DatatableComponent extends LightningElement {
     columns = columns;
-    contactList;
+    data;
+    error;
     @wire(getContacts)
-    contactMethod({ error, data }) {
-        alert('here');
-        alert(data);
-        if (data) {
-            this.contactList = data;
+    contactMethod(result) {
+        if (result) {
+            this.result = result.data;
+            this.error = undefined;
         }
         if (error) {
-            this.contactList = error;
+            this.data = undefined;
+            this.error = result.error;
         }
     }
 }
