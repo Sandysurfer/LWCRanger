@@ -15,7 +15,7 @@ accRevenue;
 })
 wiredAccounts({ data, error }) {
     if (data) {
-        console.log('Data', data);
+        console.log('Data from Account Records', data);
         //Display Field Value on Component...
         //this.accName = data.fields.Name.value;  //accessing data through dot notation 
         this.accName = getFieldValue(data, ACCOUNT_NAME_FIELD)   //using getfieldValue from ui/RecordApi..

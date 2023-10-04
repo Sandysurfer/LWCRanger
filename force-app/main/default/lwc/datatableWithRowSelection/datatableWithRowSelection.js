@@ -29,7 +29,7 @@ export default class DatatableWithRowSelection extends LightningElement {
 
     handleClick(event) {
         const label = event.target.label;
-        console.log('Label', JSON.stringify(label));
+        console.log('Button Label', JSON.stringify(label));
 
         if (label == "Show Contacts") {
             this.buttonLabel = 'Hide Contacts';
@@ -40,7 +40,7 @@ export default class DatatableWithRowSelection extends LightningElement {
         }
     }
 
-    handleChange(event) {
+    handleSearchChange(event) {
         this.searchKey = event.target.value;
         console.log('SearchValue-->', JSON.stringify(this.searchKey));
 

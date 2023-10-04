@@ -26,7 +26,7 @@ export default class LdsCreateRecord extends LightningElement {
     handleCreateAccount() {
 
         const fields = {};
-
+        //getting field values by importing field from @salesforce/schema/Account.fieldName.. 
         fields[NAME_FIELD.fieldApiName] = this.name;
         fields[PHONE_FIELD.fieldApiName] = this.phone;
         fields[INDUSTRY_FIELD.fieldApiName] = this.industry;
