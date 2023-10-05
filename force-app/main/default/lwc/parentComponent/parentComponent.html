@@ -1,0 +1,15 @@
+<template>
+  <c-child-component
+    display={greeting}
+    dislay-greeting="Welcome to techJourney With Ankit"
+    user={userdetails}
+    is-user-available
+  ></c-child-component>
+
+  <!--FIRING A CHILD LIGHTNING WEB COMPONENT METHOD FROM PARENT LWC-->
+  <lightning-button
+    label="unselection"
+    onclick={handleUnselectRecord}
+  ></ lightning-button>
+      <c-child-component></c-child-component>
+</template>
