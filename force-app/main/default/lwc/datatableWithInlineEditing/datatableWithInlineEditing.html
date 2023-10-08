@@ -1,7 +1,14 @@
 <template>
-    <div style="height:300px;">
-        <lightning-datatable key-field="Id" data={contactsData} show-row-number-column="true" columns={columns}
-            onsave={handleSave} hide-checkbox-column="true" draft-values={draftValues}>
-        </lightning-datatable>
-    </div>
+  <div style="height: 300px">
+    <lightning-datatable
+      key-field="Id"
+      data={contacts}
+      show-row-number-column="true"
+      columns={columns}
+      onsave={handleSave}
+      hide-checkbox-column="true"
+      draft-values={draftValues}
+    >
+    </lightning-datatable>
+  </div>
 </template>

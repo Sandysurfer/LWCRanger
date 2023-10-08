@@ -1,3 +1,4 @@
+/* eslint-disable @lwc/lwc/no-async-operation */
 import { LightningElement, wire, api } from 'lwc';
 import searchRecords from '@salesforce/apex/CustomLookupController.searchRecords';
 const DELAY = 300;
@@ -13,7 +14,7 @@ export default class CustomLookup extends LightningElement {
         selectedName: ""
     };
     displayOptions = false;
-    
+
     //Wire with property..
     @wire(searchRecords, {
         objectApiName: "$apiName",

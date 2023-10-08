@@ -2,28 +2,35 @@ import { LightningElement, wire } from 'lwc';
 import getContacts from '@salesforce/apex/DatatableController.getContacts';
 import updateContactDetails from '@salesforce/apex/DatatableController.updateContactDetails';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import { refreshApex } from "@salesforce/apex";
+import { refreshApex } from '@salesforce/apex';
 
 
 const columns = [
-    { label: 'Name', fieldName: 'Name', editable: 'true' },
+    { label: 'FirstName', fieldName: 'FirstName', type: 'text', editable: 'true' },
+    { label: 'LastName', fieldName: 'LastName', type: 'text', editable: 'true' },
     { label: 'Phone', fieldName: 'Phone', type: 'Phone', editable: 'true' },
     { label: 'Email', fieldName: 'Email', type: 'email', editable: 'true' }
 
 ];
 export default class DatatableJune25th extends LightningElement {
     columns = columns;
-    contactsData = [];
+    contacts;
+    error;
     draftValues = [];  //Contains Updated Value when User Edit a cell.
+    wiredContactResult;
 
     @wire(getContacts)
-    contactMethod({ error, data }) {
-        if (data) {
-            this.contactsData = data;
-            console.log('data', JSON.stringify(this.contactsData));
+    contactMethod(result) {
+        this.wiredContactResult = result;
+        if (result.data) {
+            this.contacts = result.data;
+            this.error = undefined;
+            console.log('data', JSON.stringify(this.contacts));
         }
-        if (error) {
-            console.log('error', JSON.stringify(error));
+        else if (result.error) {
+            this.data = undefined;
+            this.error = result.error;
+            console.log('Error', JSON.stringify(this.error));
         }
     }
 
@@ -36,6 +43,7 @@ export default class DatatableJune25th extends LightningElement {
         updateContactDetails({ contactData: updatedfield })
             .then(result => {
                 console.log('Result-->' + JSON.stringify(result));
+                refreshApex(this.wiredContactResult);
 
                 this.dispatchEvent(
                     new ShowToastEvent({
