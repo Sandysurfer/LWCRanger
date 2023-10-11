@@ -1,0 +1,9 @@
+<template>
+  <p>I am Parent Component</p>
+  <div onfire={fireChildDivHandler}>
+    <c-child-composition onfire={fireChildHandler}></c-child-composition>
+  </div>
+</template>
+
+<!--bubbles - false,composed - false : fireChidHandler
+bubbles - true,composed -true  : fireChidHandler, fireChildDivHandler-->

@@ -47,7 +47,7 @@ export default class SearchDatatable extends NavigationMixin(LightningElement) {
     const actionName = event.detail.action.name;
     console.log("Action Name", actionName);
     const row = event.detail.row;
-    
+
     switch (actionName) {
       case "view":
         this[NavigationMixin.Navigate]({

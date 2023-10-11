@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Event Bubbles and Composed Demo">
+        <div class="slds-var-p-around_small">
+            <p>I am Grand Parent Component</p>
+            <c-parent-composition onfire={fireChidHandler}></c-parent-composition>
+        </div>
+    </lightning-card>
+</template>
+
+<!--bubbles - false,composed - false : fireChidHandler,
+bubbles - true,composed -true  : fireChidHandler, fireChildDivHandler-->
