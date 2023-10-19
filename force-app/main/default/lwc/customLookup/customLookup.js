@@ -47,6 +47,7 @@ export default class CustomLookup extends LightningElement {
             selectedId: outputRecord.Id,
             selectedName: outputRecord.Name
         };
+        this.sendSelection();
         this.displayOptions = false;
     }
 
@@ -55,7 +56,16 @@ export default class CustomLookup extends LightningElement {
             selectedId: "",
             selectedName: ""
         };
+        this.sendSelection();
         this.displayOptions = false;
 
+    }
+
+    sendSelection() {
+        let mySelectionEvent = new CustomEvent("selectedrec", {
+            detail: this.selectedRecord
+        });
+
+        this.dispatchEvent(mySelectionEvent);
     }
 }

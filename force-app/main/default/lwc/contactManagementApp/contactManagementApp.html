@@ -1,7 +1,21 @@
 <template>
     <lightning-card title="Contact Management System">
+        <lightning-layout horizontal-align="spread">
+            <lightning-layout-item flexibility="grow" padding="around-small">
+                <lightning-input type="text" value={searchKey} placeholder="Search Contacts" variant="label-hidden"
+                    onchange={handleSearchChange}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-button label="New Contact" variant="brand" onclick={handleCreateContact}></lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-button label="Bulk Delete" variant="destructive"
+                    onclick={handleBulkDelete}></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
         <template lwc:if={contacts}>
-            <lightning-datatable key-field="Id" data={contacts} columns={columns} onrowaction={handleRowAction}>
+            <lightning-datatable key-field="Id" data={contacts} columns={columns} onrowaction={handleRowAction}
+                onrowselection={handleSelectedRow}>
             </lightning-datatable>
             <template lwc:if={isModalOpen}>
                 <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">

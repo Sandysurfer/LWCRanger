@@ -12,7 +12,7 @@ const columns = [
     { label: 'Email', fieldName: 'Email', type: 'email', editable: 'true' }
 
 ];
-export default class DatatableJune25th extends LightningElement {
+export default class DatatableWithInlineEditing extends LightningElement {
     columns = columns;
     contacts;
     error;

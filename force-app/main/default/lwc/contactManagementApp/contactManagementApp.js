@@ -1,6 +1,8 @@
+/* eslint-disable no-alert */
 import { LightningElement, wire, track } from 'lwc';
 import getContacts from '@salesforce/apex/ContactController.getContacts';
 import deleteContact from '@salesforce/apex/ContactController.deleteContact';
+import deleteBulkContactData from '@salesforce/apex/ContactController.deleteBulkContactData';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { refreshApex } from '@salesforce/apex';
 
@@ -11,6 +13,8 @@ export default class ContactManagementApp extends LightningElement {
     error;
     isModalOpen = false;
     wiredContactResult;
+    searchKey;
+    selectedContacts = [];
     columns = [
         { label: 'First Name', fieldName: 'FirstName' },
         { label: 'Last Name', fieldName: 'LastName' },
@@ -30,14 +34,14 @@ export default class ContactManagementApp extends LightningElement {
     ]
 
 
-    @wire(getContacts)
+    @wire(getContacts, { searchKeyword: "$searchKey" })
     getwiredContacts(result) {
         this.wiredContactResult = result;
         const { data, error } = result;
         if (data) {
             console.log('Data', data);
-            this.contacts = data.map(contact => {
-                let flatContact = { ...contact };  //Use spread operator to make shallow copy of array..
+            this.contacts = data.map(contact => {   //map is used to copy original array and store in new array without manipulating it..
+                let flatContact = { ...contact };  //Use spread operator to make shallow copy of an array..
                 flatContact.AccountName = contact.Account.Name;
                 flatContact.Accounturl = `/lightning/r/Account/${contact.AccountId}/view`;
                 console.log('flatContact...', flatContact);
@@ -121,4 +125,42 @@ export default class ContactManagementApp extends LightningElement {
         return this.wiredContactResult ? refreshApex(this.wiredContactResult) : undefined;
     }
 
+    handleSearchChange(event) {
+        this.searchKey = event.target.value;
+    }
+
+    handleCreateContact() {
+        this.isModalOpen = true;
+        this.IdtoEditRecord = null;
+    }
+
+    handleSelectedRow(event) {
+        const allselectedRows = event.detail.selectedRows;
+        this.selectedContacts = allselectedRows;
+        console.log('selectedRow:', JSON.stringify(this.selectedContacts));
+
+    }
+
+    handleBulkDelete() {
+        if (this.selectedContacts.length === 0) {
+            alert('Please Select atleast one row of Contact');
+            return;
+        }
+
+        const contactIds = this.selectedContacts.map(contact => contact.Id);
+
+        deleteBulkContactData({ lstContactIds: contactIds })
+            .then(result => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: "success",
+                        message: "Contact Bulk deletion Successful.",
+                        variant: "success"
+                    })
+                );
+            })
+            .catch(error => {
+                alert('Error Deleting Contact Records');
+            })
+    }
 }

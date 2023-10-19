@@ -11,19 +11,19 @@ export default class GetPicklistValueDemo extends LightningElement {
 
 
     @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
-    objectInfo;
-    
+    accountobjectInfo;
+
     //importing get picklist values from lightning/uiObjectInfoApi.....
-    @wire(getPicklistValues, { recordTypeId: '$objectInfo.data.defaultRecordTypeId', fieldApiName: ACCOUNT_TYPE })
+    @wire(getPicklistValues, { recordTypeId: '$accountobjectInfo.data.defaultRecordTypeId', fieldApiName: ACCOUNT_TYPE })
     typePicklistValues;
 
-    @wire(getPicklistValues, { recordTypeId: '$objectInfo.data.defaultRecordTypeId', fieldApiName: ACCOUNT_INDUSTRY })
+    @wire(getPicklistValues, { recordTypeId: '$accountobjectInfo.data.defaultRecordTypeId', fieldApiName: ACCOUNT_INDUSTRY })
     industryPicklistValues;
 
     handleIndustryChange(event) {
         this.industryvalues = event.detail.value;
     }
-    
+
     handleTypeChange(event) {
         this.typevalues = event.detail.value;
     }
