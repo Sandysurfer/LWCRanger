@@ -1,6 +1,6 @@
 import { LightningElement } from 'lwc';
 
-export default class ParentJune17 extends LightningElement {
+export default class ParentCmpEvent extends LightningElement {
     buttonName;
 
     handleCustomEvent(event) {

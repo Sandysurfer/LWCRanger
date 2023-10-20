@@ -1,6 +1,6 @@
 import { LightningElement } from 'lwc';
 
-export default class June17 extends LightningElement {
+export default class Calculator extends LightningElement {
     result = 0;
     firstnumber;
     secondnumber;
