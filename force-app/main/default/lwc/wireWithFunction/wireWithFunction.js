@@ -1,5 +1,5 @@
 import { LightningElement, wire, track } from 'lwc';
-import getAccounts from '@salesforce/apex/AccountController.getAccounts';
+import getAccounts from '@salesforce/apex/LightningDataTableController.getAccounts';
 export default class Demowire extends LightningElement {
 
     @track columns = [
@@ -11,7 +11,6 @@ export default class Demowire extends LightningElement {
 
     @track accountlist;
     @track error;
-    
     @wire(getAccounts)
     wiredaccount({ error, data }) {
         if (data) {
@@ -21,8 +20,8 @@ export default class Demowire extends LightningElement {
             let updatedAccounts = data.map((currItem) => {
                 let updatedObject = {};
 
-                if (!currItem.hasOwnProperty("Rating")) {
-                    updatedObject = { ...currItem, Rating: "Warm" };
+                if (!currItem.hasOwnProperty("Rating", "Industry")) {
+                    updatedObject = { ...currItem, Rating: "Warm", Industry: "Electronics" };
                 }
                 else {
                     updatedObject = { ...currItem };

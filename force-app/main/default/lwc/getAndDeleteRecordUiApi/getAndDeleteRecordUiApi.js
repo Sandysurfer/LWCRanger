@@ -15,13 +15,12 @@ export default class GetAndDeleteRecordUiApi extends LightningElement {
     accountId;
     accountDetail;
 
-    @wire(getRecord, { recordId: "Provide Account RecordId", fields: FIELDS })
+    @wire(getRecord, { recordId: "Provide Account Id", fields: FIELDS })
     wiredAccount({ data, error }) {
         if (data) {
             this.accountDetail = data;
             console.log('Account Detail-->' + JSON.stringify(this.accountDetail));
-
-            //Displaying Account Fields Value on Component Side...
+            //Display Value on Component...
             this.accountId = this.accountDetail.id;
             this.accountName = this.accountDetail.field.Name.value;
             this.accountPhone = this.accountDetail.field.Phone.value;

@@ -4,7 +4,6 @@ import { encodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
 
 export default class NavigationDemo extends NavigationMixin(LightningElement) {
 
-    //navigation to home page
     navHomeClickHandler() {
         let pageReg = {
             type: 'standard__namedPage',
@@ -15,7 +14,6 @@ export default class NavigationDemo extends NavigationMixin(LightningElement) {
         this[NavigationMixin.Navigate](pageReg)
     }
 
-    //navigation to account listview page...
     navAccListViewClickHandler() {
         let pageRef =
         {
@@ -29,7 +27,6 @@ export default class NavigationDemo extends NavigationMixin(LightningElement) {
 
     }
 
-    //navigating to create account record page with default values...
     createNewAccClickHandler() {
         const defaultValues = encodeDefaultFieldValues({
             Industry: 'Energy',

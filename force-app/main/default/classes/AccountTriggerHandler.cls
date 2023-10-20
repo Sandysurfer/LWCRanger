@@ -6,7 +6,7 @@ public class AccountTriggerHandler {
             accNameSet.add(ac.Name);     
         }
         Set<String> duplicateAccNames = new Set<String>();
-        List<Account> exAccList = [Select Id,Name From Account Where Name IN : accNameSet WITH SECURITY_ENFORCED ];
+        List<Account> exAccList = [Select Id,Name From Account Where Name IN : accNameSet];
         for(Account a : exAccList){
             duplicateAccNames.add(a.Name);
         }
@@ -23,7 +23,7 @@ public class AccountTriggerHandler {
         for(Account ac : accList){
             accNameSet.add(ac.Name);
         }
-        List<Contact> conListToDelete = [Select Id From Contact Where Name IN : accNameSet  With SECURITY_ENFORCED];
+        List<Contact> conListToDelete = [Select Id From Contact Where Name IN : accNameSet];
         System.debug('--1--'+conListToDelete);
         if(conListToDelete.size()>0){
             delete conListToDelete;
@@ -52,19 +52,18 @@ public class AccountTriggerHandler {
                 conList.add(c);
             }
         }
-        if(conList.size()>0){
-            insert conList;  
-        }    
+        if(conList.size()>0)
+            insert conList;      
     }
     //***Task 4: Create multiple Contacts on update and delete Contacts according to of No of contacts field in Account....
-    public static void updateMultipleContact(List<Account> newAccList, Map<Id,Account> oldAccMap){
+    public static void updateMultipleContact(List<Account> newAccList,Map<Id,Account> oldAccMap){
         Set<Id> accIdSet = new Set<Id>();
         Map<Id,List<Contact>> accConMap = new Map<Id,List<Contact>>();
         
         for(Account ac : newAccList){
             accIdSet.add(ac.Id);
         }
-        for(Account act : [Select Id,No_of_Contacts__c,(Select Id,AccountId From Contacts) From Account Where Id IN : accIdSet WITH SECURITY_ENFORCED]){
+        for(Account act : [Select Id,No_of_Contacts__c,(Select Id,AccountId From Contacts) From Account Where Id IN : accIdSet]){
             accConMap.put(act.Id,act.Contacts);
         }
         List<Contact> diffConList = new List<Contact>();
@@ -113,7 +112,7 @@ public class AccountTriggerHandler {
             accNameSet.add(ac.Name);
         }
         
-        for(Account exAcc : [SELECT Id, Name FROM Account Where Name IN : accNameSet WITH SECURITY_ENFORCED]){
+        for(Account exAcc : [SELECT Id, Name FROM Account Where Name IN : accNameSet]){
             exAccMap.put(exAcc.Name, exAcc.Id);
         }
         for(Account acc : newAccList){

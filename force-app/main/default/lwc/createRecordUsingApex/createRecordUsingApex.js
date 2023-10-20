@@ -15,15 +15,15 @@ export default class CreateRecordUsingApex extends LightningElement {
         this.contactLastName = event.target.value;
     }
     handlePhoneChange(event) {
-        this.contactPhone = event.target.value;
+        this.contactName = event.target.value;
     }
 
     handleEmailChange(event) {
-        this.contactEmail =  event.target.value;
+        this.contactName = event.target.value;
     }
 
     handleClick() {
-        createContactRecords({ firstname: this.contactFirstName, lastname: this.contactLastName, email: this.contactEmail, phone: this.contactPhone })
+        createContactRecords({ firstname: this.contactFirstName, lastname: this.contactLastName, email: this.contactEmail, phone: this.contactEmail })
             .then(result => {
                 console.log('ContactRecords', JSON.stringify(result));
             })

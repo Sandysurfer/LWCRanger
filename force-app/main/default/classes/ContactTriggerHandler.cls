@@ -62,15 +62,13 @@ public class ContactTriggerHandler {
             }
         }
         Set<String> duplicateEmailSetInContact = new Set<String>();
-        List<Contact> conList = [Select Id,Email From Contact where Email IN : emailSet];
-        for(Contact c : conList){
+        for(Contact c : [Select Id,Email From Contact where Email IN : emailSet]){
             duplicateEmailSetInContact.add(c.Email);
         }
         System.debug('--1--'+duplicateEmailSetInContact);
         
         Set<String> duplicateEmailSetInLead = new Set<String>();
-        List<Lead> leadList = [Select Id,Email From Lead where Email IN : emailSet];
-        for(Lead l : leadList){
+        for(Lead l : [Select Id,Email From Lead where Email IN : emailSet]){
             duplicateEmailSetInLead.add(l.Email);
         }
         System.debug('--1--'+duplicateEmailSetInLead);
@@ -174,7 +172,7 @@ public class ContactTriggerHandler {
         }
     }
     //***Task 5:When a Account related Contact have unique Email then before creating another Contact with same email on same Account
-    // user should get an error, while another Account related Contacts Can have that unique Email....
+    // user should get an error, while for another Account related Contacts Can have that unique Email....
     public static void uniqueEmailForAccount(List<Contact> newConList) {
         Set<Id> accIdSet = new Set<Id>();
         for (Contact ct : newConList) {
@@ -195,7 +193,6 @@ public class ContactTriggerHandler {
                 accConEmailMap.put(con.AccountId,emailSet);
             }
         }
-        
         // Check for unique emails of Contact within their related Accounts
         for(Contact c : newConList){
             if(accConEmailMap.get(c.AccountId).contains(c.Email)){
@@ -203,7 +200,7 @@ public class ContactTriggerHandler {
             }
         }
     }
-    //Task 6:-Check for Single Primary Contact on Account, while before creating new contact on account,if that Contact is primary_contact__c then, 
+    //Task 6:-Check for Single Primary Contact on Account, While before creating new contact on account,if there is Contact already as primary_contact__c then, 
     //User should get error i.e ('There is Already a primary Contact on this Account).(both while before insert,before update).....
     public static void checkPrimaryContact(List<Contact> newConList,Map<Id,Contact> oldConMap){
         Set<Id> accIdSet = new Set<Id>();
@@ -233,7 +230,7 @@ public class ContactTriggerHandler {
             List<Contact> conList = [Select Id,AccountId,Primary_Contact__c From Contact Where AccountId IN : accIdSet AND Primary_Contact__c = true];
             //System.debug('--2--'+conList);
             for(Contact ct : conList){
-                conCountMap.put(ct.AccountId,conList);
+                conCountMap.put(ct.AccountId, conList);
             }
             //System.debug('--3--'+conCountMap);
             for(Contact con : newConList){
@@ -243,7 +240,7 @@ public class ContactTriggerHandler {
             }
         }
     }
-    //Task 10: When newly Created Contact and its related Account Phone are Same then mark that Contact as primary Contact...
+    //Task 10: When New Contact is created and its related Account Phone are Same then mark that Contact as primary Contact...
     public static void checkPhoneAndMarkPrimary(List<Contact> newConList){
         Set<Id> accIdSet = new Set<Id>();
         Map<Id,Account> accMap = new Map<Id,Account>();
@@ -264,10 +261,10 @@ public class ContactTriggerHandler {
             }
         }
     }
-    //***Task 7: When the previous Account related Contact field Primary_Contact__c == true,and we are inserting new contact with Primary_Contact__c = true
+    //***Task 7: When the previous Account related Contact field Primary_Contact__c == true, and we are inserting new contact with Primary_Contact__c = true
     //make that previous Contact Primary_Contact__c = false, also if there is no Contact with Primary_Contact__c == true on related Account,
     //then make that first created or Modified contact as Primary_Contact__c....
-
+    
     public static void validatePrimaryContact(List<Contact> newConList){
         Set<Id> accIdSet = new Set<Id>();
         Map<Id,List<Contact>> conMap = new Map<Id,List<Contact>>();
@@ -283,39 +280,39 @@ public class ContactTriggerHandler {
             }
         }
         if(!accIdSet.isEmpty()){
-            List<Contact> exConList = [Select Id,AccountId,Primary_Contact__c From Contact Where AccountId IN : accIdSet
+            List<Contact> exConList = [Select Id, AccountId, Primary_Contact__c From Contact Where AccountId IN : accIdSet
                                        AND Primary_Contact__c = true ORDER BY CreatedDate ASC];
             //System.debug('--2--'+exConList);
-                for(Contact ct : exConList){
-                    conMap.put(ct.AccountId, new List<Contact>());
-                    // System.debug('--3--'+conMap);
-                }
-                for(Contact con : newConList){
-                    if(con.Primary_Contact__c == true){
-                        for(Contact ct : conMap.get(con.AccountId)){
-                            //System.debug('--4--'+ct);
-                            if(con.Id != ct.Id){
-                                con.Primary_Contact__c = false;
-                                conListToUpdate.add(con);
-                                accConSet.add(con.AccountId);
-                            }
+            for(Contact ct : exConList){
+                conMap.put(ct.AccountId, new List<Contact>());
+                // System.debug('--3--'+conMap);
+            }
+            for(Contact con : newConList){
+                if(con.Primary_Contact__c == true){
+                    for(Contact ct : conMap.get(con.AccountId)){
+                        //System.debug('--4--'+ct);
+                        if(con.Id != ct.Id){
+                            con.Primary_Contact__c = false;
+                            conListToUpdate.add(con);
+                            accConSet.add(con.AccountId);
                         }
                     }
                 }
-                for(Id ids : conMap.keySet()){
-                    // System.debug('--5--'+ids);
-                    if(!accConSet.contains(ids)){
-                        Contact c = conMap.get(ids)[0];
-                       // System.debug('--6--'+conMap.get(ids)[0]);
-                        c.Primary_Contact__c = true;
-                        conListToUpdate.add(c);
-                    }
-                }
-                if(!conListToUpdate.isEmpty()){
-                    update conListToUpdate;
+            }
+            for(Id ids : conMap.keySet()){
+                // System.debug('--5--'+ids);
+                if(!accConSet.contains(ids)){
+                    Contact c = conMap.get(ids)[0];
+                    // System.debug('--6--'+conMap.get(ids)[0]);
+                    c.Primary_Contact__c = true;
+                    conListToUpdate.add(c);
                 }
             }
+            if(!conListToUpdate.isEmpty()){
+                update conListToUpdate;
+            }
         }
+    }
     
     //Task 8: Rollup Summary of Target Amount of Contacts based on Region on Account Custom Field Region Target Amount...
     public static void rollUpTargetRegionAmount(List<Contact> newConList, Map<Id,Contact> oldConMap){

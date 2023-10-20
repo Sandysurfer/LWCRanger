@@ -7,8 +7,8 @@
             </div>
             <div class="slds-var-m-around_medium">
                 <p>Relationships of Account</p>
-                <template for:each={accountinfo.childRelationships} for:item="relation">
-                    <p key={relation.childObjectApiName}>{relation.childObjectApiName}</p>
+                <template for:each={accountinfo.childRelationships} for:item="rel">
+                    <p key={rel.childObjectApiName}>{rel.childObjectApiName}</p>
                 </template>
             </div>
         </template>

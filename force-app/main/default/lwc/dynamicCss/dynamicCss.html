@@ -1,30 +1,15 @@
 <template>
-  <lightning-card title="Dynamic CSS" icon-name="custom:custom14">
-    <div class="slds-var-p-around_small">
-      <p class={pColor}>Welcome to Tech Journey With Ankit</p>
-    </div>
-    <div class="slds-var-p-around_small">
-      <lightning-button
-        label="Add CSS"
-        variant="brand"
-        onclick={addcssHandler}
-        class="slds-var-p-around_small"
-      >
-      </lightning-button>
-      <lightning-button
-        label="Remove CSS"
-        variant="brand"
-        onclick={removecssHandler}
-        class="slds-var-p-around_small"
-      >
-      </lightning-button>
-      <lightning-button
-        label="Toggle CSS"
-        variant="brand"
-        onclick={togglecssHandler}
-        class="slds-var-p-around_small"
-      >
-      </lightning-button>
-    </div>
-  </lightning-card>
+    <lightning-card title="Dynamic CSS" icon-name="custom:custom14">
+        <div class="slds-var-p-around_small">
+            <p class={pColor}>Welcome to Tech Journey With Ankit</p>
+        </div>
+        <div class="slds-var-p-around_small">
+            <lightning-button label="Add CSS" variant="brand" onclick={addcssHandler} class="slds-var-p-around_small">
+            </lightning-button>
+            <lightning-button label="Remove CSS" variant="brand" onclick={removecssHandler} class="slds-var-p-around_small">
+            </lightning-button>
+            <lightning-button label="Toggle CSS" variant="brand" onclick={togglecssHandler} class="slds-var-p-around_small">
+            </lightning-button>
+        </div>
+    </lightning-card>
 </template>

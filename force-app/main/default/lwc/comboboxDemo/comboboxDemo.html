@@ -8,19 +8,4 @@
 
         <p>Selected Value is: {value}</p>
     </lightning-card>
-
-
-    <!--Combobox With Datatable to Show Account Related Contacts-->
-    <lightning-card title="Combobox with Datatable">
-        <lightning-combobox label="Accounts Available" value={value} placeholder="Select an Account" options={options}
-            onchange={handleSearchChange}>
-        </lightning-combobox>
-    </lightning-card>
-
-    <!--Show or Hide Datatable Card According to Account Related Contacts if available-->
-    <template if:true={cardVisible}>
-        <lightning-card title="Datatable Card">
-            <lightning-datatable key-field="id" data={data} columns={columns}></lightning-datatable>
-        </lightning-card>
-    </template>
 </template>

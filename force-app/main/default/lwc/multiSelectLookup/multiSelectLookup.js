@@ -1,4 +1,3 @@
-/* eslint-disable @lwc/lwc/no-async-operation */
 import { LightningElement, wire, api } from 'lwc';
 import searchRecords from '@salesforce/apex/CustomLookupController.searchRecords';
 import { showToastEvent } from 'lightning/platformShowToastEvent';

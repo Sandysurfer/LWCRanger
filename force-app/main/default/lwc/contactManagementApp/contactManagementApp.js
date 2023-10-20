@@ -40,7 +40,7 @@ export default class ContactManagementApp extends LightningElement {
         const { data, error } = result;
         if (data) {
             console.log('Data', data);
-            this.contacts = data.map(contact => {   //map is used to copy original array and store in new array without manipulating it..
+            this.contacts = data.map(contact => {//map is used to copy original array and store in new array without manipulating it..
                 let flatContact = { ...contact };  //Use spread operator to make shallow copy of an array..
                 flatContact.AccountName = contact.Account.Name;
                 flatContact.Accounturl = `/lightning/r/Account/${contact.AccountId}/view`;
