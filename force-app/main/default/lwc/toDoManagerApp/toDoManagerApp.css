@@ -1,0 +1,11 @@
+.incompletebackground {
+  background-color: rgb(235, 232, 60);
+}
+
+.completebackground {
+  background-color: rgb(37, 233, 30);
+}
+
+.formattaskname {
+  font-size: large;
+}
