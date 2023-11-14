@@ -63,7 +63,7 @@ export default class CustomLookup extends LightningElement {
 
     sendSelection() {
         let mySelectionEvent = new CustomEvent("selectedrec", {
-            detail: this.selectedRecord
+            detail: this.selectedRecord.selectedId
         });
 
         this.dispatchEvent(mySelectionEvent);

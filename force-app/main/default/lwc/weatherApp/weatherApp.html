@@ -1,0 +1,22 @@
+<template>
+  <div class="slds-size_6-of-12">
+    <lightning-card title="Weather Forecasting">
+      <div class="slds-var-m-around_medium">
+        <lightning-input
+          label="Enter City"
+          onchange={handleChange}
+        ></lightning-input>
+      </div>
+      <lightning-button
+        class="slds-var-m-around_medium"
+        label="Get Weather"
+        variant="brand"
+        onclick={handleGetWeather}
+      ></lightning-button>
+      <div lwc:if={weatherIcon}>
+        <img src={weatherIcon} alt="Weather icon Not Found" />
+        <strong>{weatherText}</strong>
+      </div>
+    </lightning-card>
+  </div>
+</template>

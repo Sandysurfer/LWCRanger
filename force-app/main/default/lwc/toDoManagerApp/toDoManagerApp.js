@@ -1,10 +1,61 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, wire } from 'lwc';
+import { createRecord, deleteRecord, updateRecord } from 'lightning/uiRecordApi';
+import TASK_MANAGER_OBJECT from '@salesforce/schema/Task_Manager__c';
+import TASK_NAME_FIELD from '@salesforce/schema/Task_Manager__c.Name';
+import TASK_DATE_FIELD from '@salesforce/schema/Task_Manager__c.Task_Date__c';
+import ID_FIELD from '@salesforce/schema/Task_Manager__c.Id';
+import COMPLETED_DATE_FIELD from '@salesforce/schema/Task_Manager__c.Completed_Date__c';
+import ISCOMPLETED_FIELD from '@salesforce/schema/Task_Manager__c.isCompleted__c';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import loadAllInCompletedRecords from '@salesforce/apex/ToDoAppController.loadAllInCompletedRecords';
+import loadAllCompletedRecords from '@salesforce/apex/ToDoAppController.loadAllCompletedRecords';
+import { refreshApex } from '@salesforce/apex';
+
 
 export default class ToDoManagerApp extends LightningElement {
     taskname = "";
-    taskdate = null;
+    taskdate = "";
     incompleteTask = [];
     completeTask = [];
+    incompleteTaskResult;
+    completeTaskResult
+
+    @wire(loadAllInCompletedRecords) wire_inCompleteRecord(result) {
+        this.incompleteTaskResult = result;  //Storing Result in Seperate Property
+        let { data, error } = result;
+        if (data) {
+            console.log('Incomplete Task Record', data);
+
+            this.incompleteTask = data.map((currItem) => ({
+                taskId: currItem.Id,
+                taskname: currItem.Name,
+                taskdate: currItem.Task_Date__c
+            }));
+            console.log('Incomplete Task Array', this.incompleteTask);
+        }
+        else if (error) {
+            console.log('Complete Task Records', error);
+        }
+    }
+
+    @wire(loadAllCompletedRecords) wire_CompleteRecord(result) {
+        this.completeTaskResult = result;
+        let { data, error } = result;
+
+        if (data) {
+            console.log('Completed Task Record', data);
+
+            this.completeTask = data.map((currItem) => ({
+                taskId: currItem.Id,
+                taskname: currItem.Name,
+                taskdate: currItem.Task_Date__c
+            }));
+            console.log('Completed Task Array', this.completeTask);
+        }
+        else if (error) {
+            console.log('Complete Task Records', error);
+        }
+    }
 
     changeHandler(event) {
         let { name, value } = event.target
@@ -27,18 +78,35 @@ export default class ToDoManagerApp extends LightningElement {
         }
 
         if (this.validateTask()) {
+            // this.incompleteTask = [
+            //     ...this.incompleteTask,
+            //     {
+            //         taskname: this.taskname,
+            //         taskdate:this.taskdate
+            //     }
+            // ];
+            // this.resetTaskHandler();
+            // let sortedArray = this.sortTask(this.incompleteTask);
+            // this.incompleteTask = [...sortedArray];
+            // console.log('Incomplete Task', this.incompleteTask);
+            let inputFields = {};
 
-            this.incompleteTask = [
-                ...this.incompleteTask,
-                {
-                    taskname: this.taskname,
-                    taskdate: this.taskdate
-                }
-            ];
-            this.resetTaskHandler();
-            let sortedArray = this.sortTask(this.incompleteTask);
-            this.incompleteTask = [...sortedArray];
-            console.log('Incomplete Task', this.incompleteTask);
+            inputFields[TASK_NAME_FIELD.fieldApiName] = this.taskname;
+            inputFields[TASK_DATE_FIELD.fieldApiName] = this.taskdate;
+            inputFields[ISCOMPLETED_FIELD.fieldApiName] = false;
+
+            let recordInput = {
+                apiName: TASK_MANAGER_OBJECT.objectApiName,
+                fields: inputFields
+            };
+            createRecord(recordInput)
+                .then((result) => {
+                    console.log("Record Created Successfully", result);
+                    this.showToast('Success', 'Task Record Created Successfully', 'success');
+                    this.resetTaskHandler();
+                    refreshApex(this.incompleteTaskResult);
+                });
+
         }
     }
 
@@ -46,10 +114,10 @@ export default class ToDoManagerApp extends LightningElement {
         let isValid = true;
         let element = this.template.querySelector(".taskname");
         //condition 1: if task name is Empty
-        //Condition 2: if task name is not Empty then Check For Duplicate
         if (!this.taskname) {
             isValid = false;
         }
+        //Condition 2: if task name is not Empty then Check For Duplicate
         else {
             //if find method, wil find an item in array it will return task else it will return undefined
             let taskItem = this.incompleteTask.find(
@@ -81,17 +149,29 @@ export default class ToDoManagerApp extends LightningElement {
 
     removeHandler(event) {
         //from Incomplete Task Remove the Array Item.
-        let index = event.target.name;
-        this.incompleteTask.splice(index, 1);
-        let sortedArray = this.sortTask(this.incompleteTask);
-        this.incompleteTask = [...sortedArray];
-        console.log('Incomplete Task', this.incompleteTask);
+        let recordId = event.target.name;
+        console.log('Deleted RecordId', recordId);
+        deleteRecord(recordId)
+            .then(() => {
+                this.showToast('Deleted', 'Task Record Deleted Successfully', 'success');
+                refreshApex(this.incompleteTaskResult);
+
+            })
+            .catch((error) => {
+                console.log("Error Deleting Record", error);
+                this.showToast('Deleted', 'Record Deletion Failed', 'error');
+            });
+
+        // this.incompleteTask.splice(index, 1);
+        // let sortedArray = this.sortTask(this.incompleteTask);
+        // this.incompleteTask = [...sortedArray];
+        // console.log('Incomplete Task', this.incompleteTask);
     }
 
     completeTaskHandler(event) {
         //remove the entry from incomplete item and 
-        let index = event.target.name;
-        this.refreshData(index);
+        let recordId = event.target.name;
+        this.refreshData(recordId);
     }
 
     dragStartHandler(event) {
@@ -103,16 +183,48 @@ export default class ToDoManagerApp extends LightningElement {
 
     }
     dropElementHandler(event) {
-        let index = event.dataTransfer.getData("index");
-        this.refreshData(index);
+        let recordId = event.dataTransfer.getData("index");
+        this.refreshData(recordId);
     }
 
-    refreshData(index) {
-        let removeItem = this.incompleteTask.splice(index, 1);
-        let sortedArray = this.sortTask(this.incompleteTask);
-        this.incompleteTask = [...sortedArray];
-        console.log('Incomplete Task', this.incompleteTask);
-        //add the same entry in complete item
-        this.completeTask = [...this.completeTask, removeItem[0]];
+
+    async refreshData(recordId) {
+
+        let inputfields = {};
+        inputfields[ID_FIELD.fieldApiName] = recordId;
+        inputfields[ISCOMPLETED_FIELD.fieldApiName] = true;
+        inputfields[COMPLETED_DATE_FIELD.fieldApiName] = new Date().toISOString().slice(0, 10);
+
+        let recordInput = {
+            fields: inputfields
+        };
+        try {
+            await updateRecord(recordInput)
+            await refreshApex(this.incompleteTaskResult);
+            await refreshApex(this.completeTaskResult);
+            this.showToast('updated', 'Record Updated Successfully', 'success');
+        }
+        catch (error) {
+            console.log("Update Operation Failed", error);
+            this.showToast('Error', 'Record Udpation Failed', 'error');
+        }
+
+        // let removeItem = this.incompleteTask.splice(index, 1);
+        // let sortedArray = this.sortTask(this.incompleteTask);
+        // this.incompleteTask = [...sortedArray];
+        // console.log('Incomplete Task', this.incompleteTask);
+        // //add the same entry in complete item
+        // this.completeTask = [...this.completeTask, removeItem[0]];
+    }
+
+    //Generic toast component
+    showToast(title, message, variant) {
+        const event = new ShowToastEvent({
+            title: title,
+            message: message,
+            variant: variant
+
+        });
+        this.dispatchEvent(event);
     }
 }

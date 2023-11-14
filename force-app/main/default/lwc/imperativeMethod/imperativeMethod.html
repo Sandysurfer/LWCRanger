@@ -1,8 +1,37 @@
 <template>
-    <template if:true={accountlist}>
-        <lightning-datatable key-field="Id" columns={columns} data={accountlist}></lightning-datatable>
+  <lightning-card title="Imperative Apex Demo">
+    <div class="slds-var-m-small">
+      <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_2-of-3">
+          <template lwc:if={industryPickList.data}>
+            <lightning-combobox
+              name="progress"
+              label="Industry"
+              placeholder="Select Industry"
+              options={industryPickList.data.values}
+              onchange={handleChange}
+            ></lightning-combobox>
+          </template>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+          <lightning-button
+            variant="brand"
+            label="Get Accounts"
+            onclick={handleClick}
+          ></lightning-button>
+        </div>
+      </div>
+    </div>
+    <template lwc:if={data}>
+      <div class="slds-var-p-around_medium">
+        <div style="height: 300px">
+          <lightning-datatable
+            key-field="Id"
+            columns={columns}
+            data={data}
+          ></lightning-datatable>
+        </div>
+      </div>
     </template>
-    <template if:true={error}>
-        {error}
-    </template>
+  </lightning-card>
 </template>

@@ -8,7 +8,7 @@ export default class ContactFilter extends NavigationMixin(LightningElement) {
 
     selectedAccountId = '';
     selectedIndustry = '';
-    isButtonDisabled = true;
+    isbuttonDisabled = true;
 
     @wire(getObjectInfo, {
         objectApiName: ACCOUNT_OBJECT
@@ -25,10 +25,10 @@ export default class ContactFilter extends NavigationMixin(LightningElement) {
         this.selectedAccountId = event.detail;
         console.log('SelectedAccountId', this.selectedAccountId);
         if (this.selectedAccountId) {
-            this.isButtonDisabled = false;
+            this.isbuttonDisabled = false;
         }
         else {
-            this.isButtonDisabled = true;
+            this.isbuttonDisabled = true;
         }
         this.notifyFilterChange();
     }
@@ -45,7 +45,7 @@ export default class ContactFilter extends NavigationMixin(LightningElement) {
         let pageRef = {
             type: 'standard__objectPage',
             attributes: {
-                objectApiName: 'Account',
+                objectApiName: 'Contact',
                 actionName: 'new'
             },
             state: {

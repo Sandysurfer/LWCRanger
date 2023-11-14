@@ -1,10 +1,23 @@
 <template>
-    <lightning-card title="Search Functionality Using Datatable" icon-name="standard:account"
-        class="slds-m-around_medium">
-        <lightning-input type="text" label="Enter Account Name" placeholder="Enter Name"
-            onchange={handleSearchChange}></lightning-input>
+  <lightning-card
+    title="Search Functionality Using Datatable"
+    icon-name="standard:account"
+    class="slds-m-around_medium"
+  >
+    <lightning-input
+      type="text"
+      label="Enter Account Name"
+      placeholder="Enter Name"
+      onchange={handleSearchChange}
+    ></lightning-input>
 
-        <lightning-datatable key-field="id" data={displayResult} columns={columns} hide-checkbox-column="true"
-            show-row-number-column="true" onrowaction={handleRowAction}></lightning-datatable>
-    </lightning-card>
+    <lightning-datatable
+      key-field="id"
+      data={displayResult}
+      columns={columns}
+      hide-checkbox-column="true"
+      show-row-number-column="true"
+      onrowaction={handleRowAction}
+    ></lightning-datatable>
+  </lightning-card>
 </template>

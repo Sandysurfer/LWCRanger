@@ -19,8 +19,8 @@ export default class GetRecordDemo extends LightningElement {
             //Display Field Value on Component...
             //this.accName = data.fields.Name.value;  //accessing data through dot notation 
             // this.accRevenue = data.fields.AnnualRevenue.value;
-            this.accName = getFieldValue(data, ACCOUNT_NAME_FIELD)   //using getfieldValue from ui/RecordApi..
-            this.accRevenue = getFieldDisplayValue(data, ANNUAL_REVENUE_FIELD)  //using getFieldDisplayValue from ui/RecordApi
+            this.accName = getFieldValue(data, ACCOUNT_NAME_FIELD)   //return values only.
+            this.accRevenue = getFieldDisplayValue(data, ANNUAL_REVENUE_FIELD)  //return display value as on ui.
         }
         else if (error) {
             console.log('Error', error);
