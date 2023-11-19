@@ -1,0 +1,54 @@
+<template>
+  <lightning-card title="Currency Converter" icon-name="custom:custom17">
+    <div class="exampleHolder" if:true={isLoading}>
+      <lightning-spinner
+        alternative-text="Loading convert"
+        variant="brand"
+        size="medium"
+      ></lightning-spinner>
+    </div>
+    <div class="slds-p-around_medium">
+      <lightning-combobox
+        name="sourceCurrency"
+        label="Select Source Currency"
+        value={sourceCurrency}
+        placeholder="Select Source Currency"
+        options={options}
+        onchange={sourcehandleChange}
+      ></lightning-combobox>
+    </div>
+    <div class="slds-p-around_medium">
+      <lightning-input
+        name="amount"
+        label="Enter Amount"
+        onchange={handleAmountChange}
+      ></lightning-input>
+    </div>
+    <div class="slds-p-around_medium">
+      <lightning-combobox
+        name="targetCurrency"
+        label="Select Target Currency"
+        value={targetCurrency}
+        placeholder="Select Target Currency"
+        options={options}
+        onchange={targethandleChange}
+      ></lightning-combobox>
+    </div>
+    <div class="slds-m-top_small slds-m-bottom_medium slds-p-around_medium">
+      <lightning-button
+        variant="brand"
+        label="Convert"
+        title="Convert"
+        onclick={handleConvert}
+      ></lightning-button>
+    </div>
+    <div class="slds-p-around_medium">
+      <lightning-input
+        name="convertedAmount"
+        label="Converted Amount"
+        value={convertedAmount}
+        disabled="true"
+      ></lightning-input>
+    </div>
+  </lightning-card>
+</template>

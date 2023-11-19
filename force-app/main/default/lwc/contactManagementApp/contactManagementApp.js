@@ -8,7 +8,7 @@ import { refreshApex } from '@salesforce/apex';
 
 export default class ContactManagementApp extends LightningElement {
 
-    @track IdtoEditRecord;
+    @track idToEditRecord;
     contacts;
     error;
     isModalOpen = false;
@@ -16,6 +16,7 @@ export default class ContactManagementApp extends LightningElement {
     searchKey;
     selectedContacts = [];
     columns = [
+
         { label: 'First Name', fieldName: 'FirstName' },
         { label: 'Last Name', fieldName: 'LastName' },
         { label: 'Phone', fieldName: 'Phone' },
@@ -35,14 +36,17 @@ export default class ContactManagementApp extends LightningElement {
 
 
     @wire(getContacts, { searchKeyword: "$searchKey" })
+
     getwiredContacts(result) {
         this.wiredContactResult = result;
+
         const { data, error } = result;
         if (data) {
             console.log('Data', data);
-            this.contacts = data.map(contact => {//map is used to copy original array and store in new array without manipulating it..
-                let flatContact = { ...contact };  //Use spread operator to make shallow copy of an array..
+            this.contacts = data.map(contact => {  //map is used to copy original array, Store in new array without manipulation..
+                let flatContact = { ...contact };  //Use spread operator to make shallow copy of an array
                 flatContact.AccountName = contact.Account.Name;
+                // To Access Contact Parent Account lightning/r/Contact/0035g00000zPjerAAC/view
                 flatContact.Accounturl = `/lightning/r/Account/${contact.AccountId}/view`;
                 console.log('flatContact...', flatContact);
                 return flatContact;
@@ -56,6 +60,7 @@ export default class ContactManagementApp extends LightningElement {
     }
 
     getRowAction(row, doneCallback) {
+
         const actions = [
             { label: 'Edit', name: 'edit' },
             { label: 'Delete', name: 'delete' }
@@ -71,7 +76,7 @@ export default class ContactManagementApp extends LightningElement {
         switch (action.name) {
             case "edit":
                 this.isModalOpen = true;
-                this.IdtoEditRecord = rowId;
+                this.idtoEditRecord = rowId;
                 break;
             case 'delete':
                 this.deleteRecord(rowId);
@@ -113,7 +118,7 @@ export default class ContactManagementApp extends LightningElement {
         this.dispatchEvent(
             new ShowToastEvent({
                 title: "success",
-                message: "Contact updated Successfully.",
+                message: "Contact Updated Successfully.",
                 variant: "success"
             })
         );

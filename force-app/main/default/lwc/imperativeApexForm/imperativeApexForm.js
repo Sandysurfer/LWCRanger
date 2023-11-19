@@ -10,6 +10,8 @@ export default class ImperativeApexForm extends LightningElement {
     accname = "";
     accticker = "";
 
+    //debugger
+
     @wire(getRecord, {
         recordId: "$recordId",
         fields: [ACCOUNT_NAME, ACCOUNT_TICKER]
@@ -35,7 +37,7 @@ export default class ImperativeApexForm extends LightningElement {
         })
             .then((result) => {
                 console.log("Record Update Successfully", result);
-                //Used to Update lds
+                //notifyRecordUpdate Available Used to Update lds with recordIds
                 notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
 
             })

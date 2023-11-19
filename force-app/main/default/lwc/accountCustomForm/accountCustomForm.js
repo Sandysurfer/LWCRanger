@@ -10,13 +10,7 @@ import ACCOUNT_SLA_EXPIRY_DT from "@salesforce/schema/Account.SLAExpirationDate_
 import ACCOUNT_NO_OF_LOCATION from "@salesforce/schema/Account.NumberofLocations__c";
 import ACCOUNT_DESCRIPTION from "@salesforce/schema/Account.Description";
 import { getObjectInfo, getPicklistValues } from "lightning/uiObjectInfoApi";
-import {
-    createRecord,
-    getRecord,
-    getFieldValue,
-    updateRecord,
-    deleteRecord
-} from "lightning/uiRecordApi";
+import { createRecord, getRecord, getFieldValue, updateRecord, deleteRecord } from "lightning/uiRecordApi";
 import { NavigationMixin } from "lightning/navigation";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
@@ -28,9 +22,7 @@ const fieldsToLoad = [
     ACCOUNT_NO_OF_LOCATION,
     ACCOUNT_DESCRIPTION
 ];
-export default class AccountCustomForm extends NavigationMixin(
-    LightningElement
-) {
+export default class AccountCustomForm extends NavigationMixin(LightningElement) {
     parentoptions = [];
     selParentAcc = "";
     selAccName = "";
@@ -44,6 +36,8 @@ export default class AccountCustomForm extends NavigationMixin(
         recordId: "$recordId",
         fields: fieldsToLoad
     })
+
+    //Wired Get Record Field Value Using uiRecord Api in lightning Data Services
     wiredgetRecords({ data, error }) {
         if (data) {
             this.selParentAcc = getFieldValue(data, ACCOUNT_PARENT);
@@ -70,11 +64,13 @@ export default class AccountCustomForm extends NavigationMixin(
         }
     }
 
+    //Get Object Info Using uiRecordApi
     @wire(getObjectInfo, {
         objectApiName: ACCOUNT_OBJECT
     })
     accountObjectInfo;
 
+    //Get Picklist Value Using $ObjectInfo.data.defaultRecordTypeId and Field Api Name
     @wire(getPicklistValues, {
         recordTypeId: "$accountObjectInfo.data.defaultRecordTypeId",
         fieldApiName: ACCOUNT_SLA_TYPE
@@ -115,8 +111,9 @@ export default class AccountCustomForm extends NavigationMixin(
             inputfields[ACCOUNT_DESCRIPTION.fieldApiName] = this.selDescription;
 
             if (this.recordId) {
-                //update Operation
+                //For update Operation in Account Id is Required in this Case 
                 inputfields[ACCOUNT_ID.fieldApiName] = this.recordId;
+
                 let recordInput = {
                     fields: inputfields
                 };
@@ -126,15 +123,18 @@ export default class AccountCustomForm extends NavigationMixin(
                         this.showToast();
                     })
                     .catch((error) => {
-                        console.log("Record Update Failed", error);
+                        console.log("Record Updation Failed", error);
                     });
             }
             else {
-                //create Operation
+
+
+                //createRecord Operation
                 const recordInput = {
                     apiName: ACCOUNT_OBJECT.objectApiName,
                     fields: inputfields
                 };
+
                 createRecord(recordInput)
                     .then((result) => {
                         console.log("Account Created Successfully", result);
@@ -149,14 +149,15 @@ export default class AccountCustomForm extends NavigationMixin(
                         this[NavigationMixin.Navigate](pageRef);
                     })
                     .catch((error) => {
-                        console.log("Error While Creating Records", error);
+                        console.log("Error Creating Records", error);
                     });
             }
-        } else {
+        }
+        else {
             console.log("Inputs are not Valid");
         }
     }
-
+    //Validate Input on Using UI While User is Providing Input Using the Custom Validity.
     validateInput() {
         let fieldsVal = Array.from(this.template.querySelectorAll(".validateme"));
         let isValid = fieldsVal.every((currItem) => currItem.checkValidity());
