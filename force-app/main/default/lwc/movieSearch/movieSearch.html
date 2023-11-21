@@ -2,7 +2,7 @@
   <!--filter Section-->
   <div class="filterstyle">
     <lightning-layout horizontal-align="center">
-      <lightning-layout-item padding="around_small" size="3">
+      <lightning-layout-item padding="around-small" size="3">
         <lightning-combobox
           name="type"
           label="Type"
@@ -13,7 +13,7 @@
         >
         </lightning-combobox>
       </lightning-layout-item>
-      <lightning-layout-item padding="around_small" size="7">
+      <lightning-layout-item padding="around-small" size="7">
         <lightning-input
           name="search"
           label="Enter Search Item"
@@ -23,7 +23,7 @@
           onchange={handleChange}
         ></lightning-input>
       </lightning-layout-item>
-      <lightning-layout-item padding="around_small" size="2">
+      <lightning-layout-item padding="around-small" size="2">
         <lightning-input
           type="number"
           name="pageno"
@@ -47,7 +47,7 @@
         <template for:each={searchResult} for:item="searchItem">
           <lightning-layout-item
             size="3"
-            padding="around_small"
+            padding="around-small"
             key={searchItem.imdbID}
           >
             <c-movie-tile

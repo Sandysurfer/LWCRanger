@@ -1,5 +1,8 @@
 /* eslint-disable @lwc/lwc/no-async-operation */
-import { LightningElement } from 'lwc';
+import { LightningElement, wire } from 'lwc';
+import { publish, MessageContext } from 'lightning/messageService';
+import MOVIE_CHANNEL from '@salesforce/messageChannel/movieChannel__c';
+
 const DELAY = 300;
 
 export default class MovieSearch extends LightningElement {
@@ -11,6 +14,8 @@ export default class MovieSearch extends LightningElement {
     searchResult = [];
     selectedMovie = '';
 
+    @wire(MessageContext)
+    messageContext;
 
     get typeoptions() {
         return [
@@ -31,12 +36,15 @@ export default class MovieSearch extends LightningElement {
         } else if (name === 'pageno') {
             this.selectedPageNo = value;
         }
-        //Debouncing Using SetTiMeOuT aND tIME iNTERVAL
+
+        //Debouncing Using SetTimeout and timeInterval
+
         clearTimeout(this.delayTimeout);
         this.delayTimeout = setTimeout(() => {
             this.searchMovie();
         }, DELAY);
     }
+
     //this method will search for movies
     async searchMovie() {
         //Using String Interpolation,template literals to bind Api Url With Dynamic Fetch Values Using Async Await Function.
@@ -50,11 +58,15 @@ export default class MovieSearch extends LightningElement {
         }
     }
 
-    get displaySearchResult() {
-        return this.searchResult.length > 0 ? true : false;
-    }
-
     movieSelectedHandler(event) {
         this.selectedMovie = event.detail;
+
+        const payload = { movieId: this.selectedMovie };
+
+        publish(this.messageContext, MOVIE_CHANNEL, payload);
+    }
+
+    get displaySearchResult() {
+        return this.searchResult.length > 0 ? true : false;
     }
 }
