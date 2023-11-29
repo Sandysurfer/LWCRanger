@@ -6,9 +6,9 @@ export default class PublishLMS extends LightningElement {
 
     @wire(MessageContext)
     messageContext;
+
     publishMessage() {
         const payload = { lmsData: 'Welcome From Tech Journey With Ankit' };
-
         publish(this.messageContext, recordSelected, payload);
 
     }

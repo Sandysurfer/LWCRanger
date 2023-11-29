@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Display Map</masterLabel>
+    <description
+  >This Component Will be Used to Display Map in Screen Flow</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+        <property label="Street" name="street" type="String" role="inputOnly" />
+        <property label="City" name="city" type="String" role="inputOnly" />
+        <property
+        label="Country"
+        name="country"
+        type="String"
+        role="inputOnly"
+      />
+        <property label="Title" name="title" type="String" role="inputOnly" />
+        <property
+        label="Description"
+        name="description"
+        type="String"
+        role="inputOnly"
+      />
+    </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

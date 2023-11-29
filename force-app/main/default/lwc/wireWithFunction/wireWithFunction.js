@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import { LightningElement, wire, track } from 'lwc';
 import getAccounts from '@salesforce/apex/LightningDataTableController.getAccounts';
 export default class Demowire extends LightningElement {

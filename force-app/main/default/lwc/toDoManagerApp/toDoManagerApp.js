@@ -99,6 +99,7 @@ export default class ToDoManagerApp extends LightningElement {
                 apiName: TASK_MANAGER_OBJECT.objectApiName,
                 fields: inputFields
             };
+
             createRecord(recordInput)
                 .then((result) => {
                     console.log("Record Created Successfully", result);

@@ -4,18 +4,18 @@ import { CurrentPageReference } from 'lightning/navigation';
 
 export default class Receiver extends LightningElement {
 
-strCapturedText = '';
-@wire(CurrentPageReference) pageRef;
+	strCapturedText = '';
+	@wire(CurrentPageReference) pageRef;
 
-connectedCallback() {
-	registerListener('sendNameEvent', this.setCaptureText, this);
-}
+	connectedCallback() {
+		registerListener('sendNameEvent', this.setCaptureText, this);
+	}
 
-disconnectedCallback() {
-	unregisterAllListeners(this);
-}
+	disconnectedCallback() {
+		unregisterAllListeners(this);
+	}
 
-setCaptureText(objPayload) {
-	this.strCapturedText = objPayload;
-}
+	setCaptureText(objPayload) {
+		this.strCapturedText = objPayload;
+	}
 }
