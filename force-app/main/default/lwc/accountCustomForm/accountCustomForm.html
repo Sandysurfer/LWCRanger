@@ -5,7 +5,7 @@
         name="parentacc"
         label="Parent Account"
         value={selParentAcc}
-        placeholder="Select Parent Accout"
+        placeholder="Select Parent Account"
         options={parentoptions}
         onchange={handleChange}
         required="true"
@@ -23,7 +23,6 @@
         max-length="60"
         min-length="2"
         message-when-too-short="Minimum Length of Account Name is 2"
-        message
         message-when-too-long="Maximum Length of Account Name is 60"
         class="validateme"
         value={selAccName}
@@ -44,6 +43,7 @@
           options={slaPicklist.data.values}
           type="button"
           value={selSlaType}
+          onchange={handleChange}
         >
         </lightning-radio-group>
       </template>
@@ -54,6 +54,7 @@
         step="1"
         value={selNoofLocations}
         name="nooflocations"
+        onchange={handleChange}
       >
       </lightning-slider>
       <lightning-input-rich-text

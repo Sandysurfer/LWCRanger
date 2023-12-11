@@ -1,6 +1,6 @@
 /* eslint-disable no-else-return */
 import { LightningElement, wire, api } from "lwc";
-import getAccountList from "@salesforce/apex/AccountController.getAccountList";
+import getParentAccounts from "@salesforce/apex/AccountController.getParentAccounts";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
 import ACCOUNT_PARENT from "@salesforce/schema/Account.ParentId";
 import ACCOUNT_ID from "@salesforce/schema/Account.Id";
@@ -32,12 +32,8 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
     selNoofLocations = "1";
     @api recordId;
 
-    @wire(getRecord, {
-        recordId: "$recordId",
-        fields: fieldsToLoad
-    })
-
-    //Wired Get Record Field Value Using uiRecord Api in lightning Data Services
+    //Use of WireAdapter(getRecord)
+    @wire(getRecord, { recordId: "$recordId", fields: fieldsToLoad })
     wiredgetRecords({ data, error }) {
         if (data) {
             this.selParentAcc = getFieldValue(data, ACCOUNT_PARENT);
@@ -47,11 +43,11 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
             this.selNoofLocations = getFieldValue(data, ACCOUNT_NO_OF_LOCATION);
             this.selDescription = getFieldValue(data, ACCOUNT_DESCRIPTION);
         } else if (error) {
-            console.log("Error Message", error);
+            console.log("Error Message During Retrival", error);
         }
     }
-
-    @wire(getAccountList)
+    //wire decorator for calling apex class
+    @wire(getParentAccounts)
     wiredAccounts({ data, error }) {
         this.parentoptions = [];
         if (data) {
@@ -60,11 +56,11 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
                 value: currItem.Id
             }));
         } else if (error) {
-            console.log("Error While Getting Parent Records");
+            console.log("Error While Getting Related Parent Records");
         }
     }
 
-    //Get Object Info Using uiRecordApi
+    //Get Object Info Using uiObjectInfoApi base Components
     @wire(getObjectInfo, {
         objectApiName: ACCOUNT_OBJECT
     })
@@ -79,6 +75,7 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
 
     handleChange(event) {
         let { name, value } = event.target;
+
         if (name === "parentacc") {
             this.selParentAcc = value;
         }
@@ -101,7 +98,9 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
 
     saveRecord() {
         console.log("Account object", ACCOUNT_OBJECT);
+        console.log("Account Name", ACCOUNT_NAME);
         if (this.validateInput()) {
+
             const inputfields = {};
             inputfields[ACCOUNT_NAME.fieldApiName] = this.selAccName;
             inputfields[ACCOUNT_PARENT.fieldApiName] = this.selParentAcc;
@@ -110,16 +109,17 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
             inputfields[ACCOUNT_NO_OF_LOCATION.fieldApiName] = this.selNoofLocations;
             inputfields[ACCOUNT_DESCRIPTION.fieldApiName] = this.selDescription;
 
+
             if (this.recordId) {
                 //For update Operation in Account Id is Required in this Case 
                 inputfields[ACCOUNT_ID.fieldApiName] = this.recordId;
 
-                let recordInput = {
+                const recordInput = {
                     fields: inputfields
                 };
                 updateRecord(recordInput)
                     .then((result) => {
-                        console.log("Record Update Successfully", result);
+                        console.log("Record Updated Successfully", result);
                         this.showToast();
                     })
                     .catch((error) => {
@@ -127,15 +127,13 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
                     });
             }
             else {
-
-
                 //createRecord Operation
-                const recordInput = {
+                const recordData = {
                     apiName: ACCOUNT_OBJECT.objectApiName,
                     fields: inputfields
                 };
 
-                createRecord(recordInput)
+                createRecord(recordData)
                     .then((result) => {
                         console.log("Account Created Successfully", result);
                         let pageRef = {
@@ -149,7 +147,14 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
                         this[NavigationMixin.Navigate](pageRef);
                     })
                     .catch((error) => {
-                        console.log("Error Creating Records", error);
+                        console.log("Error While Creating Records", error);
+                        this.dispatchEvent(
+                            new ShowToastEvent({
+                                title: "Error creating record",
+                                message: error.body.message,
+                                variant: "error"
+                            })
+                        );
                     });
             }
         }
@@ -159,8 +164,8 @@ export default class AccountCustomForm extends NavigationMixin(LightningElement)
     }
     //Validate Input on Using UI While User is Providing Input Using the Custom Validity.
     validateInput() {
-        let fieldsVal = Array.from(this.template.querySelectorAll(".validateme"));
-        let isValid = fieldsVal.every((currItem) => currItem.checkValidity());
+        let fields = Array.from(this.template.querySelectorAll(".validateme"));
+        let isValid = fields.every((currItem) => currItem.checkValidity());
         return isValid;
     }
 

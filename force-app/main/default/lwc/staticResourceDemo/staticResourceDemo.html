@@ -1,0 +1,32 @@
+<template>
+  <lightning-card title="Static Resource Demo" icon-name="custom:custom14">
+    <div class="slds-m-around_small">
+      <img src={myLogoImage} />
+    </div>
+  </lightning-card>
+  <lightning-card title="Asset Resource Demo" icon-name="custom:custom14">
+    <div class="slds-m-around_small">
+      <img src={myLogoAsset} />
+    </div>
+  </lightning-card>
+  <lightning-card title="Custom Label Demo" icon-name="custom:custom14">
+    <div class="slds-m-around_small">
+      <p class="sls-text-heading_medium">{greeting}</p>
+    </div>
+  </lightning-card>
+  <lightning-card title="Logged In UserName" icon-name="custom:custom14">
+    <div class="slds-m-around_small">
+      <p class="sls-text-heading_medium">{name}</p>
+    </div>
+  </lightning-card>
+  <lightning-card title="Check Permission" icon-name="custom:custom14">
+    <div class="slds-m-around_small">
+      <template lwc:if={checkPermission}>
+        <p>You are Authorized to view the Message</p>
+      </template>
+      <template lwc:else>
+        <p>You are not Authorized to view the Message</p>
+      </template>
+    </div>
+  </lightning-card>
+</template>

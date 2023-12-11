@@ -1,5 +1,5 @@
 import { LightningElement, track, wire } from 'lwc';
-import getAccountList from '@salesforce/apex/LightningDataTableController.getAccountList';
+import getAccountList from '@salesforce/apex/LightningDataTableController.getAccounts';
 
 export default class CsvComponent extends LightningElement {
 
@@ -8,16 +8,18 @@ export default class CsvComponent extends LightningElement {
 
     columns = [
         { label: 'Account Name', fieldName: 'Name' },
-        { label: 'Phone', fieldName: 'Phone' },
+        { label: 'Rating', fieldName: 'Rating' },
         { label: 'Industry', fieldName: 'Industry' },
-        { label: 'Website', fieldName: 'Website' },
+        { label: 'Phone', fieldName: 'Phone' },
     ];
+
     @wire(getAccountList)
     wiredaccount({ error, data }) {
         if (data) {
             console.log(data);
             this.accountData = data;
-        } else if (error) {
+        }
+        else if (error) {
             console.log(error);
             this.error = error;
         }
@@ -50,7 +52,9 @@ export default class CsvComponent extends LightningElement {
         let csvBody = downloadRecords.map(currItem =>
             Object.values(currItem).toString()
         );
-        //debugger;
+
+        debugger;
+
         let csvfile = csvHeader + '\n' + csvBody.join('\n');
         return csvfile;
     }

@@ -20,8 +20,8 @@ export default class CurrencyConversionApp extends LightningElement {
 
     fetchAmountFromOpp(recId) {
         getAmountFromOpportunity({ recordId: recId })
-            .then(res => {
-                this.amount = res;
+            .then(result => {
+                this.amount = result;
             })
             .catch(error => {
                 console.error('-- error--', error);

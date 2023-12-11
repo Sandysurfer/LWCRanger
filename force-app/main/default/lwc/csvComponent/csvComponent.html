@@ -1,8 +1,24 @@
 <template>
+  <lightning-card title="Export CSV/XLS File">
     <div class="slds-var-p-around_small">
-        <lightning-button variant="brand" label="Export Data" title="Export Data into csv" icon-name="utility:download"
-            onclick={handleClick} disabled={checkRecords}></lightning-button>
+      <lightning-button
+        variant="brand"
+        label="Export Data"
+        title="Export Data into csv"
+        icon-name="utility:download"
+        onclick={handleClick}
+        disabled={checkRecords}
+      ></lightning-button>
     </div>
-    <lightning-datatable data={accountData} columns={columns} key-field="Id">
-    </lightning-datatable>
+    <template lwc:if={accountData}>
+      <div>
+        <lightning-datatable
+          data={accountData}
+          columns={columns}
+          key-field="Id"
+        >
+        </lightning-datatable>
+      </div>
+    </template>
+  </lightning-card>
 </template>

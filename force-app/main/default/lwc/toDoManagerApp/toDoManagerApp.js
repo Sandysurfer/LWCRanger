@@ -78,17 +78,7 @@ export default class ToDoManagerApp extends LightningElement {
         }
 
         if (this.validateTask()) {
-            // this.incompleteTask = [
-            //     ...this.incompleteTask,
-            //     {
-            //         taskname: this.taskname,
-            //         taskdate:this.taskdate
-            //     }
-            // ];
-            // this.resetTaskHandler();
-            // let sortedArray = this.sortTask(this.incompleteTask);
-            // this.incompleteTask = [...sortedArray];
-            // console.log('Incomplete Task', this.incompleteTask);
+
             let inputFields = {};
 
             inputFields[TASK_NAME_FIELD.fieldApiName] = this.taskname;
@@ -163,10 +153,6 @@ export default class ToDoManagerApp extends LightningElement {
                 this.showToast('Deleted', 'Record Deletion Failed', 'error');
             });
 
-        // this.incompleteTask.splice(index, 1);
-        // let sortedArray = this.sortTask(this.incompleteTask);
-        // this.incompleteTask = [...sortedArray];
-        // console.log('Incomplete Task', this.incompleteTask);
     }
 
     completeTaskHandler(event) {
@@ -210,12 +196,6 @@ export default class ToDoManagerApp extends LightningElement {
             this.showToast('Error', 'Record Udpation Failed', 'error');
         }
 
-        // let removeItem = this.incompleteTask.splice(index, 1);
-        // let sortedArray = this.sortTask(this.incompleteTask);
-        // this.incompleteTask = [...sortedArray];
-        // console.log('Incomplete Task', this.incompleteTask);
-        // //add the same entry in complete item
-        // this.completeTask = [...this.completeTask, removeItem[0]];
     }
 
     //Generic toast component

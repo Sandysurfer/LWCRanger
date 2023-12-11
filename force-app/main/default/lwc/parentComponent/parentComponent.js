@@ -1,16 +1,17 @@
 import { LightningElement } from 'lwc';
 
 export default class ParentComponent extends LightningElement {
-//private
+    //private
     greeting = 'Welcome to TechJourney';
+
     userdetails = {
-        firstname:'sandeep',
-        lastname:'yadav',
-        channel:'sfdcsurfer'
+        firstname: 'sandeep',
+        lastname: 'yadav',
+        channel: 'sfdcsurfer'
     };
 
     //FIRING A CHILD LIGHTNING WEB COMPONENT METHOD FROM PARENT LWC
-    handleUnselectRecord(){
+    handleUnselectRecord() {
         this.template.querySelector("c-child-component").unselectChildMethod();
     }
 }
