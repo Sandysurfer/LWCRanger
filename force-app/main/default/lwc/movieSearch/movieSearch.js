@@ -53,7 +53,7 @@ export default class MovieSearch extends LightningElement {
         const data = await res.json();
         console.log("Movie Search Output", data);
         this.loading = false;
-        if (data.Response === 'True') {
+        if (data.Response === 'true') {
             this.searchResult = data.Search;
         }
     }

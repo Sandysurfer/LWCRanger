@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+	<targets>
+		<target>lightning__FlowScreen</target>
+	</targets>
+	<targetConfigs>
+		<targetConfig targets="lightning__FlowScreen">
+			<propertyType
+        name="T"
+        extends="SObject"
+        label="Input Type"
+        description="Generic sObject data type used for input sObject properties"
+      />
+			<property name="inputValue" type="{T}" label="input value" role="outputOnly" />
+			<property
+        name="inputValueList"
+        type="{T[]}"
+        label="input value List"
+        role="outputOnly"
+      />
+			<property
+        name="inputApexType"
+        type="apex://apexInput"
+        label="input Apex Wrapper"
+        role="outputOnly"
+      />
+			<property
+        name="inputApexTypeList"
+        type="apex://apexInputList"
+        label="input Apex Wrapper List"
+        role="outputOnly"
+      />
+		</targetConfig>
+	</targetConfigs></LightningComponentBundle>
