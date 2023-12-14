@@ -20,8 +20,10 @@ export default class ToDoManagerApp extends LightningElement {
     incompleteTaskResult;
     completeTaskResult
 
-    @wire(loadAllInCompletedRecords) wire_inCompleteRecord(result) {
-        this.incompleteTaskResult = result;  //Storing Result in Seperate Property
+    @wire(loadAllInCompletedRecords)
+    wire_inCompleteRecord(result) {
+        this.incompleteTaskResult = result;
+        //Storing Result in Seperate Property
         let { data, error } = result;
         if (data) {
             console.log('Incomplete Task Record', data);

@@ -1,0 +1,8 @@
+<template>
+    <template lwc:if={inputRecordId}>
+        <lightning-card icon-name="standard:contact" variant="base">
+            <lightning-record-form layout-type="Compact" object-api-name="Contact"
+                record-id={inputRecordId}></lightning-record-form>
+        </lightning-card>
+    </template>
+</template>
