@@ -73,6 +73,7 @@ export default class SearchDatatable extends NavigationMixin(LightningElement) {
         break;
     }
   }
+
   deleteAccount(currentRow) {
     deleteAccount({ accObj: currentRow })
       .then(() => {
@@ -89,7 +90,7 @@ export default class SearchDatatable extends NavigationMixin(LightningElement) {
         this.dispatchEvent(
           new ShowToastEvent({
             title: "Error",
-            message: JSON.stringify(error),
+            message: error.body.message,
             variant: "error"
           })
         );

@@ -9,6 +9,7 @@ export default class GetRecordDemo extends LightningElement {
     accName;
     accRevenue;
 
+    //Using wire adapter getRecord
     @wire(getRecord, {
         recordId: '$recordId',
         fields: [ACCOUNT_NAME_FIELD, ANNUAL_REVENUE_FIELD]

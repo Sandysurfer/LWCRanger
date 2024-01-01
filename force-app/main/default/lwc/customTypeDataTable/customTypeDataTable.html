@@ -1,7 +1,9 @@
 <template>
-  <c-custom-data-types
-    key-field="Id"
-    data={contacts}
-    columns={columns}
-  ></c-custom-data-types>
+  <lightning-card title="Custom Type Datatable" icon-name="standard:contact">
+    <c-custom-data-types
+      key-field="Id"
+      data={contacts}
+      columns={columns}
+    ></c-custom-data-types>
+  </lightning-card>
 </template>
