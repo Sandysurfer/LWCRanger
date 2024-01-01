@@ -67,8 +67,7 @@ export default class CustomTypeDataTable extends LightningElement {
                 let accountName = record.Account.Name;
                 let titleColor = "slds-text-color_success";
                 let rankIcon = record.Rank__c > 5 ? "utility:ribbon" : "";
-                return {
-                    ...record,
+                return { ...record,
                     accountLink: accountLink,
                     accountName: accountName,
                     titleColor: titleColor,

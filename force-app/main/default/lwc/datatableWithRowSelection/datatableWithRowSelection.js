@@ -31,7 +31,7 @@ export default class DatatableWithRowSelection extends LightningElement {
         const label = event.target.label;
         console.log('Button Label', JSON.stringify(label));
 
-        if (label == "Show Contacts") {
+        if (label === "Show Contacts") {
             this.buttonLabel = 'Hide Contacts';
             this.isDataVisible = true;
         } else {

@@ -8,27 +8,27 @@
         name="progress"
         label="Industry"
         value={industryvalues}
-        placeholder="-Select Industry-"
+        placeholder="--Select Account Industry--"
         options={industryPicklistValues.data.values}
         onchange={handleIndustryChange}
         class="slds-var-p-around_medium"
       >
       </lightning-combobox>
     </template>
-    you selected industry: <b>{industryvalues}</b>
+    your selected industry: <b>{industryvalues}</b>
 
     <template lwc:if={typePicklistValues.data}>
       <lightning-combobox
         name="progress"
         label="Type"
         value={typevalues}
-        placeholder="-Select Type-"
+        placeholder="--Select Account Type--"
         options={typePicklistValues.data.values}
         onchange={handleTypeChange}
         class="slds-var-p-around_medium"
       >
       </lightning-combobox>
     </template>
-    you selected Account Type: <b>{typevalues}</b><br /><br />
+    your selected Account Type: <b>{typevalues}</b><br /><br />
   </lightning-card>
 </template>

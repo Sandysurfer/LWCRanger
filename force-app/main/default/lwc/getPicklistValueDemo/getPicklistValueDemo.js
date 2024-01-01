@@ -9,7 +9,6 @@ export default class GetPicklistValueDemo extends LightningElement {
     @track industryvalues;
     @track typevalues;
 
-
     @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
     objectInfo;
 
@@ -22,7 +21,7 @@ export default class GetPicklistValueDemo extends LightningElement {
     handleIndustryChange(event) {
         this.industryvalues = event.detail.value;
     }
-    
+
     handleTypeChange(event) {
         this.typevalues = event.detail.value;
     }

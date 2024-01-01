@@ -39,7 +39,7 @@
 }
 
 .card-text .date {
-  color: rgb(255, 7, 110);
+  color: rgb(7, 135, 255);
   font-size: 15px;
   font-weight: 300px;
 }
@@ -54,7 +54,7 @@
   grid-template-rows: 1fr;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  background: #ff076e;
+  background: #07a4ff;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -67,8 +67,8 @@
 }
 
 .card-stats .border {
-  border-left: 1px solid rgb(172, 26, 87);
-  border-right: 1px solid rgb(172, 26, 87);
+  border-left: 1px solid rgb(26, 143, 172);
+  border-right: 1px solid rgb(26, 143, 172);
 }
 
 .card:hover {

@@ -1,0 +1,23 @@
+<template>
+  <template lwc:if={displayData}>
+    <c-custom-data-types
+      key-field="Id"
+      data={contactData}
+      columns={columns}
+      onsave={handleSave}
+      onrowaction={rowactionhandler}
+      onheaderaction={headerActionHandler}
+      draft-values={draftValues}
+    >
+    </c-custom-data-types>
+    <template lwc:if={showModal}>
+      <c-custom-modal-for-datatable
+        is-display-mode={viewMode}
+        is-edit-mode={editMode}
+        record-input-id={selectedRecordId}
+        onclosemodal={closeModal}
+      >
+      </c-custom-modal-for-datatable>
+    </template>
+  </template>
+</template>

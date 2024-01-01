@@ -1,8 +1,11 @@
 <template>
-  <div style="height: 300px">
+  <lightning-card
+    title="Datatable With Inline Editing"
+    icon-name="standard:contact"
+  >
     <lightning-datatable
       key-field="Id"
-      data={contacts}
+      data={contactData}
       show-row-number-column="true"
       columns={columns}
       onsave={handleSave}
@@ -10,5 +13,5 @@
       draft-values={draftValues}
     >
     </lightning-datatable>
-  </div>
+  </lightning-card>
 </template>
