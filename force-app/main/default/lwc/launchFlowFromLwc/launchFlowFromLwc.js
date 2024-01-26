@@ -2,7 +2,8 @@ import { LightningElement, api } from 'lwc';
 
 export default class LaunchFlowFromLwc extends LightningElement {
 
-    @api recordId
+    @api recordId;
+
     get inputVariables() {
         return [
             { name: "AccountId", type: "String", value: this.recordId },

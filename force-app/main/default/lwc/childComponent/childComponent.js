@@ -1,4 +1,4 @@
-import { LightningElement, api,track } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 
 export default class ChildComponent extends LightningElement {
     //to access the property coming from parent component
@@ -19,10 +19,22 @@ export default class ChildComponent extends LightningElement {
         return this.displayuser;
     }
 
-    //Use Case of template.queryselector for parent to child communication
-    @track selectedNumber=100;
+    //Use Case of template.queryselector ,lwc:refs for parent to child communication for accessing properties and method
+    @track selectedNumber = 100;
 
-    @api unselectChildMethod(){
+    @api unselectChildMethod() {
         this.selectedNumber = 500;
+    }
+
+    handleChild = new Date();
+
+    @api refresh() {
+        this.handleChild = new Date();
+    }
+    @api handleSave() {
+        const nameval = this.refs.NameRef.value
+        const ageval = this.refs.AgeRef.value
+        console.log('Name--', nameval);
+        console.log('Age-', ageval);
     }
 }

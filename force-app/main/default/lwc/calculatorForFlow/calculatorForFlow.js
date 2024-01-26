@@ -23,9 +23,7 @@ export default class CalculatorForFlow extends LightningElement {
             this.outputResult = Number(this.inputNumber1) / Number(this.inputNumber2);
         }
 
-        const attributeChangeEvent = new FlowAttributeChangeEvent('outputResult',
-            this.outputResult
-        );
+        const attributeChangeEvent = new FlowAttributeChangeEvent('outputResult', this.outputResult);
         this.dispatchEvent(attributeChangeEvent);
     }
 }

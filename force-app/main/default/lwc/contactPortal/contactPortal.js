@@ -26,9 +26,9 @@ export default class ContactPortal extends LightningElement {
                 this.contactId = result.Id;
                 if (result) {
                     this.showOTPForm = true;
-                    this.showToast('Success', 'Contact Found', 'success');
+                    this.showToast('Success', 'Contact Details Found', 'success');
                 } else {
-                    this.showToast('Error', 'Contact not found', 'error');
+                    this.showToast('Error', 'Contact Details Not Found', 'error');
                 }
             })
             .catch(error => {

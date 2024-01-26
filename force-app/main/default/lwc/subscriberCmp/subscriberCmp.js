@@ -5,6 +5,7 @@ import { CurrentPageReference } from 'lightning/navigation';
 export default class Receiver extends LightningElement {
 
 	strCapturedText = '';
+
 	@wire(CurrentPageReference) pageRef;
 
 	connectedCallback() {

@@ -68,8 +68,7 @@ export default class MultiSelectLookup extends LightningElement {
 
     validateDuplicate(selectedRecord) {
         let isValid = true;
-        let isRecordAlreadySelected = this.selectedRecords.find(
-            (currItem) => currItem.name === selectedRecord);
+        let isRecordAlreadySelected = this.selectedRecords.find((currItem) => currItem.name === selectedRecord);
 
         if (isRecordAlreadySelected) {
             isValid = false;

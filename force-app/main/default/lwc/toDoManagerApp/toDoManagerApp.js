@@ -40,7 +40,8 @@ export default class ToDoManagerApp extends LightningElement {
         }
     }
 
-    @wire(loadAllCompletedRecords) wire_CompleteRecord(result) {
+    @wire(loadAllCompletedRecords)
+    wire_CompleteRecord(result) {
         this.completeTaskResult = result;
         let { data, error } = result;
 
@@ -112,11 +113,10 @@ export default class ToDoManagerApp extends LightningElement {
         }
         //Condition 2: if task name is not Empty then Check For Duplicate
         else {
-            //if find method, wil find an item in array it will return task else it will return undefined
-            let taskItem = this.incompleteTask.find(
-                (currItem) =>
-                    currItem.taskname === this.taskname &&
-                    currItem.taskdate === this.taskdate
+            //find method, wil find an item in array it will return task else it will return undefined
+            let taskItem = this.incompleteTask.find((currItem) =>
+                currItem.taskname === this.taskname &&
+                currItem.taskdate === this.taskdate
             );
             if (taskItem) {
                 isValid = false;
@@ -171,6 +171,7 @@ export default class ToDoManagerApp extends LightningElement {
         event.preventDefault();
 
     }
+
     dropElementHandler(event) {
         let recordId = event.dataTransfer.getData("index");
         this.refreshData(recordId);

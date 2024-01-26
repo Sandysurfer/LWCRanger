@@ -1,10 +1,29 @@
 <template>
-    <c-child-component display={greeting}
+  <c-child-component
+    display={greeting}
     dislay-greeting="Welcome to techJourney With Ankit"
     user={userdetails}
-    is-user-available></c-child-component>
+    is-user-available
+  ></c-child-component>
 
-    <!--FIRING A CHILD LIGHTNING WEB COMPONENT METHOD FROM PARENT LWC-->
-    <lightning-button label="unselection" onclick={handleUnselectRecord}></lightning-button>
-    <c-child-component></c-child-component>
+  <!--FIRING A CHILD COMPONENT METHOD FROM PARENT COMPONENT USING QUERYSELECTOR AND REFS-->
+  <lightning-button
+    label="unselection"
+    onclick={handleUnselectRecord}
+  ></lightning-button>
+  <c-child-component></c-child-component>
+
+  <lightning-card title="Parent" icon-name="standard:contact">
+    <div class="slds-var-m-around_medium">
+      <lightning-button
+        label="ParentMe"
+        onclick={handleParent}
+      ></lightning-button>
+      <lightning-button
+        label="Get Details"
+        onclick={handleDetails}
+      ></lightning-button>
+      <c-child lwc:ref="childcmp"></c-child>
+    </div>
+  </lightning-card>
 </template>

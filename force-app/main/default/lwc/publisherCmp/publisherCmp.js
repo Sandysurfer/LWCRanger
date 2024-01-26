@@ -5,14 +5,14 @@ import { CurrentPageReference } from 'lightning/navigation';
 
 export default class PublishCmp extends LightningElement {
     strText = '';
+
     @wire(CurrentPageReference) objpageReference;
 
-    changeName(event) {
+    handleNameChange(event) {
         this.strText = event.target.value;
     }
 
     publishEvent() {
-
         fireEvent(this.objpageReference, 'sendNameEvent', this.strText);
     }
 }
