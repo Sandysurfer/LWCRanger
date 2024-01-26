@@ -1,0 +1,35 @@
+<template>
+  <lightning-card
+    title="MultiSelectPicklist Search"
+    icon-name="standard:account"
+  >
+    <div
+      class="slds-grid slds-gutter slds-var-p-bottom_medium slds-m-around_medium"
+    >
+      <div class="slds-col slds-m-around_small">
+        <lightning-input
+          label="Search Picklist Available Value"
+          onchange={handleAvailableSearch}
+        >
+        </lightning-input>
+      </div>
+      <div class="slds-col slds-m-around_small">
+        <lightning-input
+          label="Selected Picklist Value"
+          onchange={handleSelectedSearch}
+        >
+        </lightning-input>
+      </div>
+    </div>
+    <lightning-dual-listbox
+      class="slds-m-around_medium"
+      name="industry"
+      label="Select Industry"
+      source-label="Available"
+      selected-label="Selected"
+      field-level-help="Select your preferred industry"
+      options={options}
+      onchange={handleChange}
+    ></lightning-dual-listbox>
+  </lightning-card>
+</template>

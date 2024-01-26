@@ -6,10 +6,9 @@
         <target>lightning__FlowScreen</target>
     </targets>
     <targetConfigs>
-        <targetConfig targets="lightning__FlowScreen">
-            <property name="inputNumber1" type="String" role="inputOnly" />
-      <property name="inputNumber2" type="String" role="inputOnly" />
-    <property name="outputResult" type="String" role="outputOnly" />
-
-        </targetConfig>
+    <targetConfig targets="lightning__FlowScreen">
+        <property name="inputNumber1" type="String" role="inputOnly" />
+        <property name="inputNumber2" type="String" role="inputOnly" />
+        <property name="outputResult" type="String" role="outputOnly" />
+    </targetConfig>
     </targetConfigs></LightningComponentBundle>
