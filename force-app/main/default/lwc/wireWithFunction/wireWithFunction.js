@@ -12,6 +12,7 @@ export default class Demowire extends LightningElement {
 
     @track accountlist;
     @track error;
+
     @wire(getAccounts)
     wiredaccount({ error, data }) {
         if (data) {

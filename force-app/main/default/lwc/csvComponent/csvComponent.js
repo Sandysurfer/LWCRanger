@@ -53,7 +53,7 @@ export default class CsvComponent extends LightningElement {
             Object.values(currItem).toString()
         );
 
-        debugger;
+        //debugger;
 
         let csvfile = csvHeader + '\n' + csvBody.join('\n');
         return csvfile;

@@ -1,27 +1,34 @@
-import { LightningElement } from 'lwc';
+/* eslint-disable radix */
+import { LightningElement, track } from 'lwc';
 
 export default class Calculator extends LightningElement {
-    result = 0;
-    firstnumber;
-    secondnumber;
+    @track inputOne;
+    @track inputTwo;
+    result;
 
-    handleClick(event){
-        
-        if(event.target.label=='Additon'){
-            this.result = parseInt(this.firstnumber)+parseInt(this.secondnumber);
-        }
-        if(event.target.label=='Multiplication'){
-            this.result = parseInt(this.firstnumber)*parseInt(this.secondnumber);
-        }
+    handleChangeOne(event) {
+        this.inputOne = event.target.value;
     }
-    onChangeHandler(event){
-        if(event.target.name=='input1'){
-            this.firstnumber = event.target.value;
-        }
-        if(event.target.name=='input2'){    
-            this.secondnumber = event.target.value;
-        }
-        this.result = parseInt(this.firstnumber)+parseInt(this.secondnumber);
+    handleChangeTwo(event) {
+        this.inputTwo = event.target.value;
+    }
+    
+    addition() {
+        this.result = (parseInt(this.inputOne) + parseInt(this.inputTwo));
+    }
+    substraction() {
+        this.result = (parseInt(this.inputOne) - parseInt(this.inputTwo));
+    }
+    multiplication() {
+        this.result = (parseInt(this.inputOne) * parseInt(this.inputTwo));
+    }
+    division() {
+        this.result = (parseInt(this.inputOne) / parseInt(this.inputTwo));
+    }
 
+    clear() {
+        this.inputOne = '';
+        this.inputTwo = '';
+        this.result = '';
     }
 }

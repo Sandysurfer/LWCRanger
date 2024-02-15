@@ -1,0 +1,46 @@
+<template>
+  <lightning-card
+    title="Find Location Using FetchApi"
+    icon-name="standard:address"
+  >
+    <div class="slds-m-around_medium">
+      <lightning-input
+        type="search"
+        name="lat"
+        label="Latitude"
+        onchange={handleChange}
+      ></lightning-input>
+      <lightning-input
+        type="search"
+        name="long"
+        label="Longitude"
+        onchange={handleChange}
+      ></lightning-input>
+    </div>
+    <div class="slds-m-around_medium">
+      <lightning-button
+        variant="brand"
+        label="Search"
+        onclick={getLocation}
+      ></lightning-button>
+    </div>
+
+    <div if:true={info}>
+      <div class="slds-var-p-vertical_xx-small slds-text-heading_small">
+        Country Code : {info.country_code}
+      </div>
+      <div class="slds-var-p-vertical_xx-small slds-text-heading_small">
+        Time Zone : {info.timezone_id}
+      </div>
+      <div class="slds-var-p-vertical_xx-small slds-text-heading_small">
+        Latitude : {info.latitude}
+      </div>
+      <div class="slds-var-p-vertical_xx-small slds-text-heading_small">
+        Longitude : {info.longitude}
+      </div>
+      <div class="slds-var-p-vertical_xx-small slds-text-heading_small">
+        Map Url : {info.map_url}
+      </div>
+    </div>
+  </lightning-card>
+</template>

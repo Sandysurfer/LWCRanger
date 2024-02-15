@@ -1,0 +1,30 @@
+/* Style for the image */
+.slds-box {
+    background-image: url('https://imgproxy.nanxiongnandi.com/Fj4FXYGoU1XuQtS5VNSYyIL-3uauTEY6SWz0FtUz65c/w:1280/aHR0cHM6Ly9pbWcu/bmFueGlvbmduYW5k/aS5jb20vMjAyMzA4/L0RlbmFsaUNsaW1i/ZXIuanBn.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+}
+
+/* Style for the title text */
+.calculator-title {
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+/* Style for input labels */
+.input-label {
+    font-weight: bold;
+    font-size: large;
+}
+
+/* Style for aligning buttons with input boxes */
+.button-align {
+    vertical-align: top;
+    margin-top: 5px;
+}
+/* Style for the required-input text */
+.required-input {
+    font-weight: bold;
+    font-size: medium;
+}

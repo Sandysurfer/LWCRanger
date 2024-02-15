@@ -1,10 +1,47 @@
 <template>
- <lightning-card title="Calculator">
-    <lightning-input type="number" name="input1" label="Enter first number" value={firstnumber} onchange={onChangeHandler}></lightning-input>
-    <lightning-input type="number" name="input2" label="Enter second number" value={secondnumber} onchange={onChangeHandler}></lightning-input>
+   <div class="slds-box">
+       <div class="slds-text-align_center calculator-title">
+               <h1>CALCULATOR</h1>
+       </div>
+       <lightning-layout class="slds-align_absolute-center" multiple-rows="true">
+           <lightning-layout-item size="4" padding="around-medium">
+           </lightning-layout-item>
+           <lightning-layout-item size="4" padding="around-medium">
+               <lightning-input class="input-label" label="Enter First Number" type="number" value={inputOne} onchange={handleChangeOne}>
+               </lightning-input>
+               <lightning-input class="input-label" label="Enter Second Number" type="number" value={inputTwo} onchange={handleChangeTwo}>
+               </lightning-input>
+           </lightning-layout-item>
+           <lightning-layout-item size="4" padding="around-medium">
+           </lightning-layout-item>
+       </lightning-layout>
 
-    Result : {result}<br/>
-    <lightning-button variant="brand" label="Addition" title="Click Here" onclick={handleClick} ></lightning-button>
-    <lightning-button variant="brand" label="Multiplication" title="Click Here" onclick={handleClick} ></lightning-button>
- </lightning-card>
+       <lightning-layout class="slds-align_absolute-center">
+           <lightning-button variant="success" label="Addition" onclick={addition} class="slds-m-left_x-small button-align">
+           </lightning-button>
+           <lightning-button variant="destructive" label="Substract" onclick={substraction} class="slds-m-left_x-small button-align">
+           </lightning-button>
+           <lightning-button variant="brand" label="Multiply" onclick={multiplication} class="slds-m-left_x-small button-align">
+           </lightning-button>
+           <lightning-button variant="brand-outline" label="Divide" onclick={division} class="slds-m-left_x-small button-align">
+           </lightning-button>
+           <lightning-button variant="destructive-text" label="Clear" onclick={clear} class="slds-m-left_x-small button-align">
+           </lightning-button>
+       </lightning-layout>
+
+       <lightning-layout>
+           <lightning-layout-item size="4" padding="around-medium">
+           </lightning-layout-item>
+           <lightning-layout-item size="4" padding="around-medium">
+               <template lwc:if={result}>
+                  <p class="required-input">Result={result}</p>
+               </template>
+               <template lwc:else>
+                   <p class="required-input">Please Provide Input Values and Select An Operation.</p>                
+               </template>
+           </lightning-layout-item>
+           <lightning-layout-item size="4" padding="around-medium">
+           </lightning-layout-item>
+       </lightning-layout>
+   </div>
 </template>

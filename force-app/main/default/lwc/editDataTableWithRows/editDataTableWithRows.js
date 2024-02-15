@@ -37,6 +37,21 @@ const columns = [
         actions: DEFAULT_ACTION
     },
     {
+        label: "Case Count",
+        fieldName: "numberOfCases",
+        type: "number",
+        editable: false,
+        hideDefaultActions: true
+
+    },
+    {
+        label: "Is Bad Contact",
+        fieldName: "isBadContact",
+        type: "boolean",
+        editable: false,
+        hideDefaultActions: true
+    },
+    {
         type: 'action',
         typeAttributes: { rowActions: actions }
     }
@@ -57,7 +72,7 @@ export default class EditDataTableWithRows extends LightningElement {
     leadSourceActions = [];
     loadActionCompleted = false;
     contactAllData = [];
-
+    disableMe = true;
 
     @wire(getContactOfAccount, {
         accountId: "$recordId",
@@ -209,8 +224,7 @@ export default class EditDataTableWithRows extends LightningElement {
             );
         }
 
-        cols
-            .find((currItem) => currItem.fieldName === "LeadSource")
+        cols.find((currItem) => currItem.fieldName === "LeadSource")
             .actions.forEach(currItem => {
                 if (currItem.name === actionName) {
                     currItem.checked = true;
@@ -228,6 +242,63 @@ export default class EditDataTableWithRows extends LightningElement {
             // eslint-disable-next-line no-else-return
         } else {
             return false;
+        }
+    }
+
+    selectedRowHandler(event) {
+        const selectedRows = event.detail.selectedRows;
+        if (selectedRows.length > 0) {
+            this.disableMe = false;
+        }
+        else {
+            this.disableMe = true;
+        }
+
+    }
+
+    async deleteRecordsHandler() {
+        let selectedRecords = this.template.querySelector("c-custom-data-types").getSelectedRows();
+
+        let allGoodRecords = true;
+
+        let selectedRecordsHaveCases = selectedRecords.filter(currItem => currItem.numberOfCases > 0);
+
+        if (selectedRecordsHaveCases.length > 0) {
+            allGoodRecords = false;
+        }
+
+        if (allGoodRecords) {
+            //delete Operation
+            let deleteRecordsConfirmation = selectedRecords.map(currItem => deleteRecord(currItem.Id));
+
+            try {
+                await Promise.all(deleteRecordsConfirmation);
+                const event = new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Records Deleted Successfully',
+                    variant: 'success'
+                });
+                this.dispatchEvent(event);
+                this.template.querySelector("c-custom-data-types").selectedRows = [];
+                await refreshApex(this.contactRefreshProp);
+            }
+            catch (error) {
+                console.log("Error While Deleting Record", error);
+                const event = new ShowToastEvent({
+                    title: 'Error',
+                    message: 'Delete Failed' + error.body.message,
+                    variant: 'error'
+                });
+                this.dispatchEvent(event);
+            }
+        }
+        else {
+            const event = new ShowToastEvent({
+                title: 'Error',
+                message: 'Selected Contact have active cases',
+                variant: 'error'
+            });
+            this.dispatchEvent(event);
         }
     }
 }
