@@ -1,0 +1,28 @@
+<template>
+  <!--lightning record edit form to display opportunity fields-->
+  <lightning-record-edit-form
+    object-api-name={objectApiName}
+    record-id={recordId}
+  >
+    <lightning-input-field field-name="Description"></lightning-input-field>
+    <lightning-input-field field-name="IsPrivate"> </lightning-input-field>
+  </lightning-record-edit-form>
+  <br />
+
+  <!--Approve button-->
+  <lightning-button
+    variant="brand"
+    label="Approve"
+    title="Approve request"
+    onclick={handleApprove}
+    class="slds-m-left_x-small"
+  ></lightning-button>
+  <!--Reject button-->
+  <lightning-button
+    variant="destructive"
+    label="Reject"
+    title="Reject request"
+    onclick={handleReject}
+    class="slds-m-left_x-small"
+  ></lightning-button>
+</template>

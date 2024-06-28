@@ -1,0 +1,22 @@
+<template>
+  <lightning-card title="Case Detail Form">
+    <div class="slds-p-around_medium">
+      <lightning-input
+        label="Description"
+        value={description}
+        onchange={handleDescriptionChange}
+      ></lightning-input>
+      <lightning-combobox
+        label="Status"
+        options={statusOptions}
+        value={status}
+        onchange={handleStatusChange}
+      ></lightning-combobox>
+      <lightning-button
+        variant="brand"
+        label="Save"
+        onclick={handleSave}
+      ></lightning-button>
+    </div>
+  </lightning-card>
+</template>
