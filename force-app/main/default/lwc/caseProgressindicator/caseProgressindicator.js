@@ -86,7 +86,7 @@ export default class CaseProgressindicator extends LightningElement {
         // Invoke onError empApi method
         onError((error) => {
             console.log('Received error from server: ', JSON.stringify(error));
-            // Error contains the server-side error
+            // Error Contains the server side error
         });
     }
 

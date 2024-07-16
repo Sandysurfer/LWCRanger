@@ -1,5 +1,5 @@
 import { LightningElement, wire } from 'lwc';
-import getStatusPicklistValues from '@salesforce/apex/CaseController.getStatusPicklistValues';
+import getStatusPicklistValues from '@salesforce/apex/CasePicklistController.getStatusPicklistValues';
 import { createRecord } from 'lightning/uiRecordApi';
 import CASE_OBJECT from '@salesforce/schema/Case';
 export default class DynamicPicklist extends LightningElement {
